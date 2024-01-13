@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Szczegóły użytkownika{% endblock %}
+
+{% block content %}
+    <h1>Szczegóły użytkownika</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Imię</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Skrót</th>
+                <td>{{ user.shortname }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Hasło</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Telefon</th>
+                <td>{{ user.phone }}</td>
+            </tr>
+            <tr>
+                <th>Ilość wygranych</th>
+                <td>{{ user.numberOfWins }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ user.status }}</td>
+            </tr>
+            <tr>
+                <th>Priorytet</th>
+                <td>{{ user.priority }}</td>
+            </tr>
+            <tr>
+                <th>Pozycja w rankingu</th>
+                <td>{{ user.rankingPosition }}</td>
+            </tr>
+            <tr>
+                <th>Najwięcej punktów na kolejkę</th>
+                <td>{{ user.maxPointsPerQueue }}</td>
+            </tr>
+            <tr>
+                <th>Najmniej punktów na kolejkę</th>
+                <td>{{ user.minPointsPerQueue }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_index') }}">Lista użytkowników</a>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">Aktualizacja</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

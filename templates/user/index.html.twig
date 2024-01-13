@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lisa użytkowników{% endblock %}
+
+{% block content %}
+    <h1>Lista użytkowników</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imię</th>
+                <th>Skrót</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Ilość wygranych</th>
+                <th>Status</th>
+                <th>Priorytet</th>
+                <th>Pozycja w rankingu</th>
+                <th>Najwięcej punktów na kolejkę</th>
+                <th>Najmniej punktów na kolejkę</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.shortname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.numberOfWins }}</td>
+                <td>{{ user.status }}</td>
+                <td>{{ user.priority }}</td>
+                <td>{{ user.rankingPosition }}</td>
+                <td>{{ user.maxPointsPerQueue }}</td>
+                <td>{{ user.minPointsPerQueue }}</td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">Szczegóły</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">Aktualizacja</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_new') }}">Dodaj nowego użytkownika</a>
+{% endblock %}

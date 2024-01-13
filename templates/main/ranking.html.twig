@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <table class="tab_types">
+        <tr>
+            <th></th>
+            <th class="th_rank_username">Gracz</th>
+            <th class="th_rank_win">1</th>
+            <th class="th_rank_secondplaces">2</th>
+            <th class="th_rank_thirdplaces">3</th>
+            <th class="th_rank_fourthplaces">4</th>
+            <th class="th_rank_fiveplaces">5</th>
+            <th class="th_rank_sixthplaces">6</th>
+            <th class="th_rank_seventhplaces">7</th>
+            <th class="th_rank_eightplaces">8</th>
+            <th class="th_rank_nineplaces">9</th>
+            <th class="th_rank_tenplaces">10</th>
+            <th class="th_rank_others">10></th>
+            <th class="th_rank_seasons">Sezony</th>
+            <th class="th_rank_pkt">Śr. pkt na kol.</th>
+            <th class="th_rank_queue">Kolejki</th>
+            <th class="th_rank_total">Punkty</th>
+            <th class="th_rank_match_2">Mecze 2pkt</th>
+            <th class="th_rank_match_4">Mecze 4pkt</th>
+        </tr>
+        {% for rank in ranks %}
+            <tr>
+                <td>{{ loop.index }}.</td>
+                {% if(rank.status == 1) %}
+                    <td class="rank_username">{{ rank.username }} *</td>
+                {% else %}
+                    <td class="rank_username">{{ rank.username }}</td>
+                {% endif %}
+                <td class="rank_win">{{ rank.wins }}</td>
+                <td class="rank_secondplaces">{{ rank.secondplaces }}</td>
+                <td class="rank_thirdplaces">{{ rank.thirdplaces }}</td>
+                <td class="rank_fourthplaces">{{ rank.fourthplaces }}</td>
+                <td class="rank_fiveplaces">{{ rank.fiveplaces }}</td>
+                <td class="rank_sixthplaces">{{ rank.sixthplaces }}</td>
+                <td class="rank_seventhplaces">{{ rank.seventhplaces }}</td>
+                <td class="rank_eightplaces">{{ rank.eightplaces }}</td>
+                <td class="rank_nineplaces">{{ rank.nineplaces }}</td>
+                <td class="rank_tenplaces">{{ rank.tenplaces }}</td>
+                <td class="rank_others">{{ rank.others }}</td>
+                <td class="rank_seasons">{{ rank.seasons }}</td>
+                <td class="rank_ptk">{{ rank.avgPtsForMatch|number_format(2, '.', ',') }}</td>
+                <td class="rank_queue">{{ rank.numOfQue }}</td>
+                <td class="rank_total">{{ rank.totalpoints }}</td>
+                <td class="rank_match_2">{{ rank.match2 }}</td>
+                <td class="rank_match_4">{{ rank.match4 }}</td>
+
+            </tr>
+        {% endfor %}
+        <tr>
+    </table>
+{% endblock %}
+
+{% block infobar %}
+    <p style="text-align: center;padding:0;margin:0">Stan na dzień: 01-01-2024</p>
+{% endblock infobar %}

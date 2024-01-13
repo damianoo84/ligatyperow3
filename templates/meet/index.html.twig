@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista meczy{% endblock %}
+
+{% block content %}
+    <h1>Lista meczy</h1>
+
+    <a href="{{ path('meet_new') }}">Dodaj nowy mecz</a>
+    <br /><br /><br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>HostTeam</th>
+                <th>GuestTeam</th>
+                <th>Gole gospodarz</th>
+                <th>Gole gość</th>
+                <th>Data meczu</th>
+                <th>Pozycja meczu</th>
+                <th>Kolejka</th>
+                <th>Liga</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for meet in meets %}
+            <tr>
+                <td>{{ meet.id }}</td>
+                <td>{{ meet.name }}</td>
+                <td>{{ meet.hostTeam}}</td>
+                <td>{{ meet.guestTeam}}</td>
+                <td>{{ meet.hostGoals }}</td>
+                <td>{{ meet.guestGoals }}</td>
+                <td>{{ meet.term }}</td>
+                <td>{{ meet.position }}</td>
+                <td>{{ meet.matchday }}</td>
+                <td>{{ meet.league }}</td>
+                <td>
+                    <a href="{{ path('meet_show', {'id': meet.id}) }}">Szczegóły</a>
+                    <a href="{{ path('meet_edit', {'id': meet.id}) }}">Aktualizacja</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <br /><br /><br />
+    <a href="{{ path('meet_new') }}">Dodaj nowy mecz</a>
+    
+{% endblock %}

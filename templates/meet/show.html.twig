@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Szczegóły meczu{% endblock %}
+
+{% block content %}
+    <h1>Szczegóły meczu</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ meet.id }}</td>
+            </tr>
+            <tr>
+                <th>Nazwa</th>
+                <td>{{ meet.name }}</td>
+            </tr>
+            <tr>
+                <th>Gole gospodarz</th>
+                <td>{{ meet.hostGoals }}</td>
+            </tr>
+            <tr>
+                <th>Gole gość</th>
+                <td>{{ meet.guestGoals }}</td>
+            </tr>
+            <tr>
+                <th>Termin meczu</th>
+                <td>{{ meet.term }}</td>
+            </tr>
+            <tr>
+                <th>Pozycja</th>
+                <td>{{ meet.position }}</td>
+            </tr>
+            <tr>
+                <th>Kolejka</th>
+                <td>{{ meet.matchday }}</td>
+            </tr>
+            <tr>
+                <th>Liga</th>
+                <td>{{ meet.league }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('meet_index') }}">Powrót do listy</a>
+
+    <a href="{{ path('meet_edit', {'id': meet.id}) }}">Aktualizacja</a>
+
+    {{ include('meet/_delete_form.html.twig') }}
+{% endblock %}

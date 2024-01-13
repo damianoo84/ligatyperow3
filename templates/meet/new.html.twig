@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nowy mecz{% endblock %}
+
+{% block content %}
+    <h1>Dodaj nowy mecz</h1>
+
+    {{ include('meet/_form.html.twig') }}
+
+    <a href="{{ path('meet_index') }}">Wróć do listy</a>
+{% endblock %}

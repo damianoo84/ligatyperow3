@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aktualizacja{% endblock %}
+
+{% block content %}
+    <h1>Aktualizacja</h1>
+
+    {{ include('team/_form.html.twig', {'button_label': 'Aktualizacja'}) }}
+
+    <a href="{{ path('team_index') }}">Powrót do listy</a>
+
+    {{ include('team/_delete_form.html.twig') }}
+{% endblock %}

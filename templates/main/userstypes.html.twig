@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    
+    {% if compare_date(app.request.get('matchday')) %}
+        {% set nextMatchday = true %}
+    {% else %}
+        {% set nextMatchday = false %}
+    {% endif %}
+
+    {% if types is not empty %}
+        <table class="tab_types3">
+            <tr class="type_header">
+                <th class="team_matchday">Mecze/Gracze</th>
+                <th class="team_matchday_short">M/G</th>
+                <th class="team_score">wynik</th>
+                <th class="team_score_short"></th>
+                {% for user in get_users() %}
+                <th class="team_user">{{ user.username }}</th>
+                <th class="team_user_shortname">{{ user.shortname[:1] }}</th>
+                {% endfor %}
+            </tr>
+            {% for key,type in types %}
+                <tr class="tab_types_row_2">
+                    <td class="team_name">
+                        <div class="team_name_2_div_1">{{ (key|split('|')[1]) }}</div>
+                        <div class="team_name_2_div_2">{{ (key|split('|')[0])[7:] }}</div>
+                    </td>
+
+                    <td class="team_name_short_2">{{ key[:7] }}</td>
+
+                    <td class="team_score">
+                        <div class="team_score_2_div_1">{{ key|slice((key|length)-5,5) }}</div>
+                        <div class="team_score_2_div_1"></div>
+                    </td>
+
+                    {% for k,tp in type %}
+                        {% if nextMatchday == true and tp != '-' %}
+                            <td class="type_type">*</td>
+                            <td class="type_type_short">*</td>
+                        {% else %}
+                            <td class="type_type">
+                                {% if tp[5:] == 2 %}
+                                    <div class="type_type_div1">{{ tp[:5] }}</div>
+                                {% elseif tp[5:] == 4 %}
+                                    <div class="type_type_div3">{{ tp[:5] }}</div>
+                                {% else %}
+                                    <div class="type_type_div4">{{ tp[:5] }}</div>
+                                {% endif %}
+                                <div class="type_type_div2">{{ tp[5:] }}</div>
+                            </td>
+                            <td class="type_type_short">{{ tp[:5] }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!-- tutaj ustawienie na komórkę -->
+        <div class="tab_types2">
+            
+            <table style="font-size: xx-small;float:left;width:auto;">
+                <tr style="padding:0;margin:0;">
+                    <td style="padding:0;margin:0;">
+                        <div style="height:50px;"><p style="writing-mode: vertical-rl;text-orientation: mixed;"></p></div>
+                    </td>
+                </tr>
+                <tr style="padding:0;margin:0;height:13px;">
+                    <td></td>
+                </tr>
+                {% for key,user in users %}
+                    <tr style="padding:0;margin:0;">
+                        <td style="padding:0;margin:0;text-align: left;">{{ user.username }}</td>
+                    </tr>
+                {% endfor %}
+                    
+            </table>
+            
+            
+            {% for key,type in types %}
+                <table style="font-size: xx-small;float:left;width:auto;">
+                <tr style="padding:0;margin:0;">
+                    <td style="padding:0;margin:0;">
+                        <div style="height:50px;"><p style="writing-mode: vertical-rl;text-orientation: mixed;padding-top:5px;padding-right:5px">{{ (key|split('|')[0])[:7] }}</p></div>
+                    </td>
+                </tr>
+                
+                <tr style="padding:0;margin:0;">
+                    <td style="padding:0;margin:0;">
+                        <div class="type_type_div5">{{ (key|split('|')[2])[:9] }}</div>
+                    </td>
+                </tr>
+                {#</tr>#}
+                {% for k,tp in type %}
+                    <tr style="padding:0;margin:0;">
+                    {% if nextMatchday == true and tp != '-' %}
+                        <td style="padding:0;margin:0;">*</td>
+                    {% else %}
+                            <td class="type_type2">
+                                {% if tp[5:] == 2 %}
+                                    <div class="type_type_div1">{{ tp[:5] }}</div>
+                                {% elseif tp[5:] == 4 %}
+                                    <div class="type_type_div3">{{ tp[:5] }}</div>
+                                {% else %}
+                                    <div class="type_type_div4">{{ tp[:5] }}</div>
+                                {% endif %}
+{#                                <div class="type_type_div2">{{ tp[5:] }}</div>#}
+                            </td>
+{#                            <td class="type_type_short">{{ tp[:5] }}</td>#}
+                    {% endif %}
+                    </tr>
+                {% endfor %}
+                </table>
+            {% endfor %}
+        </div>
+        
+    {% endif %}
+    
+{% endblock %}
+
+{% block infobar %}
+    <div class="list">
+        <br />
+        <p class="queque_number">Nr. kolejki</p>
+    {% for i in 1..15 %}
+        <a class="type_matchday_big_screen" href="{{ path('liga_typerow_userstypes', {'matchday' : i}) }}">Kolejka {{ i }}</a> 
+        <a class="type_matchday_small_screen" href="{{ path('liga_typerow_userstypes', {'matchday' : i}) }}">{{ i }}</a> 
+    {% endfor %} 
+    </div>   
+{% endblock infobar %}
