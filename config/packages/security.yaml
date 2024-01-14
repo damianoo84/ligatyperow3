@@ -16,10 +16,10 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: ~
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthenticator
+#            anonymous: ~
+#            guard:
+#                authenticators:
+#                    - App\Security\LoginFormAuthenticator
             form_login:
                 default_target_path: liga_typerow_table.
                 always_use_default_target_path: true

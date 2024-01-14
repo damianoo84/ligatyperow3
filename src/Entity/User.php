@@ -18,7 +18,10 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -206,6 +209,16 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+    
     /**
      * A visual identifier that represents this user.
      *
