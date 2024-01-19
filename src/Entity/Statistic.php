@@ -2,90 +2,50 @@
 
 namespace App\Entity;
 
+use App\Repository\StatisticRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\StatisticRepository")
- */
+#[ORM\Entity(repositoryClass: StatisticRepository::class)]
 class Statistic
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $match2;
+    #[ORM\Column]
+    private ?int $match2 = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $match4;
+    #[ORM\Column]
+    private ?int $match4 = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="statistic")
-     */
-    private $histories;
+    #[ORM\Column]
+    private ?int $totalPoints = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="statistics")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\Column]
+    private ?int $position = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Season", inversedBy="statistics")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $season;
+    #[ORM\Column]
+    private ?int $numOfQue = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $totalPoints;
+    #[ORM\ManyToOne(inversedBy: 'statistics')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $position;
+    #[ORM\ManyToOne(inversedBy: 'statistics')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Season $season = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numOfQue;
+    #[ORM\OneToMany(mappedBy: 'statistic', targetEntity: History::class)]
+    private Collection $histories;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function __construct()
     {
@@ -102,7 +62,7 @@ class Statistic
         return $this->match2;
     }
 
-    public function setMatch2(int $match2): self
+    public function setMatch2(int $match2): static
     {
         $this->match2 = $match2;
 
@@ -114,64 +74,9 @@ class Statistic
         return $this->match4;
     }
 
-    public function setMatch4(int $match4): self
+    public function setMatch4(int $match4): static
     {
         $this->match4 = $match4;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|History[]
-     */
-    public function getHistories(): Collection
-    {
-        return $this->histories;
-    }
-
-    public function addHistory(History $history): self
-    {
-        if (!$this->histories->contains($history)) {
-            $this->histories[] = $history;
-            $history->setStatistic($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHistory(History $history): self
-    {
-        if ($this->histories->contains($history)) {
-            $this->histories->removeElement($history);
-            // set the owning side to null (unless already changed)
-            if ($history->getStatistic() === $this) {
-                $history->setStatistic(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getSeason(): ?Season
-    {
-        return $this->season;
-    }
-
-    public function setSeason(?Season $season): self
-    {
-        $this->season = $season;
 
         return $this;
     }
@@ -181,7 +86,7 @@ class Statistic
         return $this->totalPoints;
     }
 
-    public function setTotalPoints(int $totalPoints): self
+    public function setTotalPoints(int $totalPoints): static
     {
         $this->totalPoints = $totalPoints;
 
@@ -193,7 +98,7 @@ class Statistic
         return $this->position;
     }
 
-    public function setPosition(int $position): self
+    public function setPosition(int $position): static
     {
         $this->position = $position;
 
@@ -205,9 +110,87 @@ class Statistic
         return $this->numOfQue;
     }
 
-    public function setNumOfQue(int $numOfQue): self
+    public function setNumOfQue(int $numOfQue): static
     {
         $this->numOfQue = $numOfQue;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSeason(): ?Season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?Season $season): static
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, History>
+     */
+    public function getHistories(): Collection
+    {
+        return $this->histories;
+    }
+
+    public function addHistory(History $history): static
+    {
+        if (!$this->histories->contains($history)) {
+            $this->histories->add($history);
+            $history->setStatistic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): static
+    {
+        if ($this->histories->removeElement($history)) {
+            // set the owning side to null (unless already changed)
+            if ($history->getStatistic() === $this) {
+                $history->setStatistic(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
 
         return $this;
     }

@@ -2,83 +2,46 @@
 
 namespace App\Entity;
 
+use App\Repository\SeasonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\SeasonRepository")
- */
+#[ORM\Entity(repositoryClass: SeasonRepository::class)]
 class Season
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $name;
+    #[ORM\Column(length: 20)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="season")
-     */
-    private $comments;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateStart = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Matchday", mappedBy="season")
-     */
-    private $matchdays;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateEnd = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Statistic", mappedBy="season")
-     */
-    private $statistics;
+    #[ORM\Column(nullable: true)]
+    private ?bool $isActive = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateStart;
+    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Comment::class)]
+    private Collection $comments;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateEnd;
+    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Matchday::class)]
+    private Collection $matchdays;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isActive;
+    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Statistic::class)]
+    private Collection $statistics;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function __construct()
     {
@@ -97,102 +60,9 @@ class Season
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setSeason($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getSeason() === $this) {
-                $comment->setSeason(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Matchday[]
-     */
-    public function getMatchdays(): Collection
-    {
-        return $this->matchdays;
-    }
-
-    public function addMatchday(Matchday $matchday): self
-    {
-        if (!$this->matchdays->contains($matchday)) {
-            $this->matchdays[] = $matchday;
-            $matchday->setSeason($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMatchday(Matchday $matchday): self
-    {
-        if ($this->matchdays->contains($matchday)) {
-            $this->matchdays->removeElement($matchday);
-            // set the owning side to null (unless already changed)
-            if ($matchday->getSeason() === $this) {
-                $matchday->setSeason(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Statistic[]
-     */
-    public function getStatistics(): Collection
-    {
-        return $this->statistics;
-    }
-
-    public function addStatistic(Statistic $statistic): self
-    {
-        if (!$this->statistics->contains($statistic)) {
-            $this->statistics[] = $statistic;
-            $statistic->setSeason($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStatistic(Statistic $statistic): self
-    {
-        if ($this->statistics->contains($statistic)) {
-            $this->statistics->removeElement($statistic);
-            // set the owning side to null (unless already changed)
-            if ($statistic->getSeason() === $this) {
-                $statistic->setSeason(null);
-            }
-        }
 
         return $this;
     }
@@ -202,7 +72,7 @@ class Season
         return $this->dateStart;
     }
 
-    public function setDateStart(?\DateTimeInterface $dateStart): self
+    public function setDateStart(\DateTimeInterface $dateStart): static
     {
         $this->dateStart = $dateStart;
 
@@ -214,21 +84,135 @@ class Season
         return $this->dateEnd;
     }
 
-    public function setDateEnd(?\DateTimeInterface $dateEnd): self
+    public function setDateEnd(?\DateTimeInterface $dateEnd): static
     {
         $this->dateEnd = $dateEnd;
 
         return $this;
     }
 
-    public function getIsActive(): ?bool
+    public function isIsActive(): ?bool
     {
         return $this->isActive;
     }
 
-    public function setIsActive(?bool $isActive): self
+    public function setIsActive(?bool $isActive): static
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setSeason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getSeason() === $this) {
+                $comment->setSeason(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Matchday>
+     */
+    public function getMatchdays(): Collection
+    {
+        return $this->matchdays;
+    }
+
+    public function addMatchday(Matchday $matchday): static
+    {
+        if (!$this->matchdays->contains($matchday)) {
+            $this->matchdays->add($matchday);
+            $matchday->setSeason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatchday(Matchday $matchday): static
+    {
+        if ($this->matchdays->removeElement($matchday)) {
+            // set the owning side to null (unless already changed)
+            if ($matchday->getSeason() === $this) {
+                $matchday->setSeason(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Statistic>
+     */
+    public function getStatistics(): Collection
+    {
+        return $this->statistics;
+    }
+
+    public function addStatistic(Statistic $statistic): static
+    {
+        if (!$this->statistics->contains($statistic)) {
+            $this->statistics->add($statistic);
+            $statistic->setSeason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatistic(Statistic $statistic): static
+    {
+        if ($this->statistics->removeElement($statistic)) {
+            // set the owning side to null (unless already changed)
+            if ($statistic->getSeason() === $this) {
+                $statistic->setSeason(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
 
         return $this;
     }

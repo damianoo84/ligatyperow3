@@ -2,76 +2,44 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\TeamRepository")
- */
+#[ORM\Entity(repositoryClass: TeamRepository::class)]
 class Team
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $name;
+    #[ORM\Column]
+    private ?int $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $shortname;
+    #[ORM\Column(length: 20)]
+    private ?string $shortname = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\League", inversedBy="teams")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $league;
+    #[ORM\ManyToOne(inversedBy: 'teams')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?League $league = null;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): ?int
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(int $name): static
     {
         $this->name = $name;
 
@@ -83,37 +51,46 @@ class Team
         return $this->shortname;
     }
 
-    public function setShortname(string $shortname): self
+    public function setShortname(string $shortname): static
     {
         $this->shortname = $shortname;
 
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string)$this->name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLeague()
+    public function getLeague(): ?League
     {
         return $this->league;
     }
 
-    /**
-     * @param mixed $league
-     */
-    public function setLeague($league): void
+    public function setLeague(?League $league): static
     {
         $this->league = $league;
+
+        return $this;
     }
 
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
 
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
 }

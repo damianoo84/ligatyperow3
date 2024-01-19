@@ -2,102 +2,58 @@
 
 namespace App\Entity;
 
+use App\Repository\MeetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\MeetRepository")
- */
+#[ORM\Entity(repositoryClass: MeetRepository::class)]
 class Meet
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $name;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Team")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $hostTeam;
+    #[ORM\Column(nullable: true)]
+    private ?int $hostGoals = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Team")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $guestTeam;
+    #[ORM\Column(nullable: true)]
+    private ?int $guestGoals = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Matchday", inversedBy="meets")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $matchday;
+    #[ORM\Column(length: 255)]
+    private ?string $term = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\League", inversedBy="meets")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $league;
+    #[ORM\Column]
+    private ?int $position = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="meet")
-     */
-    private $types;
+    #[ORM\ManyToOne(inversedBy: 'meets')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?League $league = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $hostGoals;
+    #[ORM\ManyToOne(inversedBy: 'meets')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Matchday $matchday = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $guestGoals;
+    #[ORM\OneToMany(mappedBy: 'meet', targetEntity: Type::class)]
+    private Collection $types;
 
-    /**
-     * @ORM\Column(type="string", length=160, nullable=true)
-     */
-    private $term;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $hostTeam = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $position;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $guestTeam = null;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function __construct()
     {
@@ -114,88 +70,9 @@ class Meet
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getHostTeam(): ?Team
-    {
-        return $this->hostTeam;
-    }
-
-    public function setHostTeam(?Team $hostTeam): self
-    {
-        $this->hostTeam = $hostTeam;
-
-        return $this;
-    }
-
-    public function getGuestTeam(): ?Team
-    {
-        return $this->guestTeam;
-    }
-
-    public function setGuestTeam(?Team $guestTeam): self
-    {
-        $this->guestTeam = $guestTeam;
-
-        return $this;
-    }
-
-    public function getMatchday(): ?Matchday
-    {
-        return $this->matchday;
-    }
-
-    public function setMatchday(?Matchday $matchday): self
-    {
-        $this->matchday = $matchday;
-
-        return $this;
-    }
-
-    public function getLeague(): ?League
-    {
-        return $this->league;
-    }
-
-    public function setLeague(?League $league): self
-    {
-        $this->league = $league;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Type[]
-     */
-    public function getTypes(): Collection
-    {
-        return $this->types;
-    }
-
-    public function addType(Type $type): self
-    {
-        if (!$this->types->contains($type)) {
-            $this->types[] = $type;
-            $type->setMeet($this);
-        }
-
-        return $this;
-    }
-
-    public function removeType(Type $type): self
-    {
-        if ($this->types->contains($type)) {
-            $this->types->removeElement($type);
-            // set the owning side to null (unless already changed)
-            if ($type->getMeet() === $this) {
-                $type->setMeet(null);
-            }
-        }
 
         return $this;
     }
@@ -205,7 +82,7 @@ class Meet
         return $this->hostGoals;
     }
 
-    public function setHostGoals(?int $hostGoals): self
+    public function setHostGoals(?int $hostGoals): static
     {
         $this->hostGoals = $hostGoals;
 
@@ -217,7 +94,7 @@ class Meet
         return $this->guestGoals;
     }
 
-    public function setGuestGoals(?int $guestGoals): self
+    public function setGuestGoals(?int $guestGoals): static
     {
         $this->guestGoals = $guestGoals;
 
@@ -229,7 +106,7 @@ class Meet
         return $this->term;
     }
 
-    public function setTerm(?string $term): self
+    public function setTerm(string $term): static
     {
         $this->term = $term;
 
@@ -241,11 +118,112 @@ class Meet
         return $this->position;
     }
 
-    public function setPosition(int $position): self
+    public function setPosition(int $position): static
     {
         $this->position = $position;
 
         return $this;
     }
 
+    public function getLeague(): ?League
+    {
+        return $this->league;
+    }
+
+    public function setLeague(?League $league): static
+    {
+        $this->league = $league;
+
+        return $this;
+    }
+
+    public function getMatchday(): ?Matchday
+    {
+        return $this->matchday;
+    }
+
+    public function setMatchday(?Matchday $matchday): static
+    {
+        $this->matchday = $matchday;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Type>
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    public function addType(Type $type): static
+    {
+        if (!$this->types->contains($type)) {
+            $this->types->add($type);
+            $type->setMeet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeType(Type $type): static
+    {
+        if ($this->types->removeElement($type)) {
+            // set the owning side to null (unless already changed)
+            if ($type->getMeet() === $this) {
+                $type->setMeet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getHostTeam(): ?Team
+    {
+        return $this->hostTeam;
+    }
+
+    public function setHostTeam(?Team $hostTeam): static
+    {
+        $this->hostTeam = $hostTeam;
+
+        return $this;
+    }
+
+    public function getGuestTeam(): ?Team
+    {
+        return $this->guestTeam;
+    }
+
+    public function setGuestTeam(?Team $guestTeam): static
+    {
+        $this->guestTeam = $guestTeam;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
 }

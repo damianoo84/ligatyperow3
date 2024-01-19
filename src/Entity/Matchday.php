@@ -2,79 +2,44 @@
 
 namespace App\Entity;
 
+use App\Repository\MatchdayRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\MatchdayRepository")
- */
+#[ORM\Entity(repositoryClass: MatchdayRepository::class)]
 class Matchday
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $name;
+    #[ORM\Column(length: 20)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Season", inversedBy="matchdays")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $season;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dataFrom = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Meet", mappedBy="matchday")
-     */
-    private $meets;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateTo = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="matchday")
-     */
-    private $histories;
+    #[ORM\ManyToOne(inversedBy: 'matchdays')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Season $season = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateFrom;
+    #[ORM\OneToMany(mappedBy: 'matchday', targetEntity: Meet::class)]
+    private Collection $meets;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateTo;
+    #[ORM\OneToMany(mappedBy: 'matchday', targetEntity: History::class)]
+    private Collection $histories;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function __construct()
     {
@@ -92,9 +57,33 @@ class Matchday
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDataFrom(): ?\DateTimeInterface
+    {
+        return $this->dataFrom;
+    }
+
+    public function setDataFrom(?\DateTimeInterface $dataFrom): static
+    {
+        $this->dataFrom = $dataFrom;
+
+        return $this;
+    }
+
+    public function getDateTo(): ?\DateTimeInterface
+    {
+        return $this->dateTo;
+    }
+
+    public function setDateTo(?\DateTimeInterface $dateTo): static
+    {
+        $this->dateTo = $dateTo;
 
         return $this;
     }
@@ -104,7 +93,7 @@ class Matchday
         return $this->season;
     }
 
-    public function setSeason(?Season $season): self
+    public function setSeason(?Season $season): static
     {
         $this->season = $season;
 
@@ -112,27 +101,26 @@ class Matchday
     }
 
     /**
-     * @return Collection|Meet[]
+     * @return Collection<int, Meet>
      */
     public function getMeets(): Collection
     {
         return $this->meets;
     }
 
-    public function addMeet(Meet $meet): self
+    public function addMeet(Meet $meet): static
     {
         if (!$this->meets->contains($meet)) {
-            $this->meets[] = $meet;
+            $this->meets->add($meet);
             $meet->setMatchday($this);
         }
 
         return $this;
     }
 
-    public function removeMeet(Meet $meet): self
+    public function removeMeet(Meet $meet): static
     {
-        if ($this->meets->contains($meet)) {
-            $this->meets->removeElement($meet);
+        if ($this->meets->removeElement($meet)) {
             // set the owning side to null (unless already changed)
             if ($meet->getMatchday() === $this) {
                 $meet->setMatchday(null);
@@ -143,27 +131,26 @@ class Matchday
     }
 
     /**
-     * @return Collection|History[]
+     * @return Collection<int, History>
      */
     public function getHistories(): Collection
     {
         return $this->histories;
     }
 
-    public function addHistory(History $history): self
+    public function addHistory(History $history): static
     {
         if (!$this->histories->contains($history)) {
-            $this->histories[] = $history;
+            $this->histories->add($history);
             $history->setMatchday($this);
         }
 
         return $this;
     }
 
-    public function removeHistory(History $history): self
+    public function removeHistory(History $history): static
     {
-        if ($this->histories->contains($history)) {
-            $this->histories->removeElement($history);
+        if ($this->histories->removeElement($history)) {
             // set the owning side to null (unless already changed)
             if ($history->getMatchday() === $this) {
                 $history->setMatchday(null);
@@ -173,36 +160,27 @@ class Matchday
         return $this;
     }
 
-    public function getDateFrom(): ?\DateTimeInterface
+    public function getCreated(): ?\DateTimeImmutable
     {
-        return $this->dateFrom;
+        return $this->created;
     }
 
-    public function setDateFrom(?\DateTimeInterface $dateFrom): self
+    public function setCreated(?\DateTimeImmutable $created): static
     {
-        $this->dateFrom = $dateFrom;
+        $this->created = $created;
 
         return $this;
     }
 
-    public function getDateTo(): ?\DateTimeInterface
+    public function getUpdated(): ?\DateTimeImmutable
     {
-        return $this->dateTo;
+        return $this->updated;
     }
 
-    public function setDateTo(?\DateTimeInterface $dateTo): self
+    public function setUpdated(?\DateTimeImmutable $updated): static
     {
-        $this->dateTo = $dateTo;
+        $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->name;
     }
 }

@@ -2,73 +2,39 @@
 
 namespace App\Entity;
 
+use App\Repository\TypeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\TypeRepository")
- */
+#[ORM\Entity(repositoryClass: TypeRepository::class)]
 class Type
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $numberOfPoints;
+    #[ORM\Column(nullable: true)]
+    private ?int $numberOfPoints = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="types")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\Column]
+    private ?int $hostType = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Meet", inversedBy="types")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $meet;
+    #[ORM\Column]
+    private ?int $guestType = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $hostType;
+    #[ORM\ManyToOne(inversedBy: 'types')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $guestType;
+    #[ORM\ManyToOne(inversedBy: 'types')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Meet $meet = null;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function getId(): ?int
     {
@@ -80,33 +46,9 @@ class Type
         return $this->numberOfPoints;
     }
 
-    public function setNumberOfPoints(?int $numberOfPoints): self
+    public function setNumberOfPoints(?int $numberOfPoints): static
     {
         $this->numberOfPoints = $numberOfPoints;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getMeet(): ?Meet
-    {
-        return $this->meet;
-    }
-
-    public function setMeet(?Meet $meet): self
-    {
-        $this->meet = $meet;
 
         return $this;
     }
@@ -116,7 +58,7 @@ class Type
         return $this->hostType;
     }
 
-    public function setHostType(int $hostType): self
+    public function setHostType(int $hostType): static
     {
         $this->hostType = $hostType;
 
@@ -128,10 +70,59 @@ class Type
         return $this->guestType;
     }
 
-    public function setGuestType(int $guestType): self
+    public function setGuestType(int $guestType): static
     {
         $this->guestType = $guestType;
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMeet(): ?Meet
+    {
+        return $this->meet;
+    }
+
+    public function setMeet(?Meet $meet): static
+    {
+        $this->meet = $meet;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
 }

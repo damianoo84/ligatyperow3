@@ -2,188 +2,102 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- */
-class User implements UserInterface
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $username;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $username = null;
 
-    /**
-     *
-     * @ORM\Column(type="string", length=20 , unique = true)
-     */
-    private $shortname;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
+    #[ORM\Column]
+    private array $roles = [];
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
      */
-    private $password;
+    #[ORM\Column]
+    private ?string $password = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
-     */
-    private $comments;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
+    private Collection $comments;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="user")
-     */
-    private $types;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Type::class)]
+    private Collection $types;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Statistic", mappedBy="user")
-     */
-    private $statistics;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Statistic::class)]
+    private Collection $statistics;
 
-    /**
-     * @ORM\Column(type="string", length=9)
-     */
-    private $phone;
+    #[ORM\Column(length: 9)]
+    private ?string $phone = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numberOfWins;
+    #[ORM\Column]
+    private ?int $numberOfWins = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $status;
+    #[ORM\Column]
+    private ?int $status = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $priority;
+    #[ORM\Column]
+    private ?int $priority = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $lastActivityAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastActivityAt = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $rankingPosition;
+    #[ORM\Column(nullable: true)]
+    private ?int $rankingPosition = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $maxPointsPerQueue;
+    #[ORM\Column(nullable: true)]
+    private ?int $maxPointsPerQueue = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $minPointsPerQueue;
+    #[ORM\Column(nullable: true)]
+    private ?int $minPointsPerQueue = null;
 
-    /**
-     * @ORM\Column(type="string", length=20,  nullable=true)
-     */
-    private $nick;
-    
-    /**
-     * @ORM\Column(type="string", length=20,  nullable=true)
-    */
-    private $favoritePolandTeam;
-    
-    /**
-     * @ORM\Column(type="string", length=20,  nullable=true)
-    */
-    private $favoriteForeignTeam;
-    
-    /**
-     * @ORM\Column(type="integer",  nullable=true)
-    */
-    private $numberOfFirstPlaces;
-    
-    /**
-     * @ORM\Column(type="integer",  nullable=true)
-     */
-    private $numberOfSecondPlaces;
-    
-    /**
-     * @ORM\Column(type="integer",  nullable=true)
-    */
-    private $numberOfThirdPlaces;
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $nick = null;
 
-    /**
-     * @ORM\Column(type="integer",  nullable=true)
-     */
-    private $lastWinner;
-    
-    /**
-     * @ORM\Column(type="integer",  nullable=true)
-     */
-    private $liderOfRanking;
-    
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $favoritePolandTeam = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $favoriteForeignTeam = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $numberOfFirstPlaces = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $numberOfSecondPlaces = null;
 
-    public function setShortname($shortname)
-    {
-        $this->shortname = $shortname;
+    #[ORM\Column(nullable: true)]
+    private ?int $numberOfThirdPlaces = null;
 
-        return $this;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?int $lastWinner = null;
 
-    public function getShortname()
-    {
-        return $this->shortname;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?int $liderOfRanking = null;
 
-    public function getCreated()
-    {
-        return $this->created;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $shortname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
     public function __construct()
     {
@@ -197,34 +111,24 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getUsername(): ?string
     {
-        return $this->email;
+        return $this->username;
     }
 
-    public function setEmail(string $email): self
+    public function setUsername(string $username): static
     {
-        $this->email = $email;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * The public representation of the user (e.g. a username, an email address, etc.)
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-    
-    /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUserIdentifier(): string
     {
         return (string) $this->username;
     }
@@ -241,7 +145,7 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles): static
     {
         $this->roles = $roles;
 
@@ -249,14 +153,14 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password): static
     {
         $this->password = $password;
 
@@ -266,42 +170,33 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Collection<int, Comment>
      */
     public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): self
+    public function addComment(Comment $comment): static
     {
         if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
+            $this->comments->add($comment);
             $comment->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeComment(Comment $comment): self
+    public function removeComment(Comment $comment): static
     {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
@@ -312,27 +207,26 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Type[]
+     * @return Collection<int, Type>
      */
     public function getTypes(): Collection
     {
         return $this->types;
     }
 
-    public function addType(Type $type): self
+    public function addType(Type $type): static
     {
         if (!$this->types->contains($type)) {
-            $this->types[] = $type;
+            $this->types->add($type);
             $type->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeType(Type $type): self
+    public function removeType(Type $type): static
     {
-        if ($this->types->contains($type)) {
-            $this->types->removeElement($type);
+        if ($this->types->removeElement($type)) {
             // set the owning side to null (unless already changed)
             if ($type->getUser() === $this) {
                 $type->setUser(null);
@@ -343,27 +237,26 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Statistic[]
+     * @return Collection<int, Statistic>
      */
     public function getStatistics(): Collection
     {
         return $this->statistics;
     }
 
-    public function addStatistic(Statistic $statistic): self
+    public function addStatistic(Statistic $statistic): static
     {
         if (!$this->statistics->contains($statistic)) {
-            $this->statistics[] = $statistic;
+            $this->statistics->add($statistic);
             $statistic->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeStatistic(Statistic $statistic): self
+    public function removeStatistic(Statistic $statistic): static
     {
-        if ($this->statistics->contains($statistic)) {
-            $this->statistics->removeElement($statistic);
+        if ($this->statistics->removeElement($statistic)) {
             // set the owning side to null (unless already changed)
             if ($statistic->getUser() === $this) {
                 $statistic->setUser(null);
@@ -378,7 +271,7 @@ class User implements UserInterface
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(string $phone): static
     {
         $this->phone = $phone;
 
@@ -390,7 +283,7 @@ class User implements UserInterface
         return $this->numberOfWins;
     }
 
-    public function setNumberOfWins(int $numberOfWins): self
+    public function setNumberOfWins(int $numberOfWins): static
     {
         $this->numberOfWins = $numberOfWins;
 
@@ -402,7 +295,7 @@ class User implements UserInterface
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(int $status): static
     {
         $this->status = $status;
 
@@ -414,7 +307,7 @@ class User implements UserInterface
         return $this->priority;
     }
 
-    public function setPriority(int $priority): self
+    public function setPriority(int $priority): static
     {
         $this->priority = $priority;
 
@@ -426,7 +319,7 @@ class User implements UserInterface
         return $this->lastActivityAt;
     }
 
-    public function setLastActivityAt(?\DateTimeInterface $lastActivityAt): self
+    public function setLastActivityAt(?\DateTimeInterface $lastActivityAt): static
     {
         $this->lastActivityAt = $lastActivityAt;
 
@@ -438,7 +331,7 @@ class User implements UserInterface
         return $this->rankingPosition;
     }
 
-    public function setRankingPosition(int $rankingPosition): self
+    public function setRankingPosition(?int $rankingPosition): static
     {
         $this->rankingPosition = $rankingPosition;
 
@@ -450,7 +343,7 @@ class User implements UserInterface
         return $this->maxPointsPerQueue;
     }
 
-    public function setMaxPointsPerQueue(int $maxPointsPerQueue): self
+    public function setMaxPointsPerQueue(?int $maxPointsPerQueue): static
     {
         $this->maxPointsPerQueue = $maxPointsPerQueue;
 
@@ -462,94 +355,154 @@ class User implements UserInterface
         return $this->minPointsPerQueue;
     }
 
-    public function setMinPointsPerQueue(int $minPointsPerQueue): self
+    public function setMinPointsPerQueue(?int $minPointsPerQueue): static
     {
         $this->minPointsPerQueue = $minPointsPerQueue;
 
         return $this;
     }
 
-    public function setUsername(string $username): self
+    public function getNick(): ?string
     {
-        $this->username = $username;
+        return $this->nick;
+    }
+
+    public function setNick(?string $nick): static
+    {
+        $this->nick = $nick;
 
         return $this;
     }
 
-    /**
-     * @return Bool Whether the user is active or not
-     */
-    public function isActiveNow()
+    public function getFavoritePolandTeam(): ?string
     {
-        // Delay during wich the user will be considered as still active
-        $delay = new \DateTime('2 minutes ago');
-        return ( $this->getLastActivityAt() > $delay );
-    }
-    
-    public function getNick() {
-        return $this->nick;
-    }
-
-    public function setNick($nick): void {
-        $this->nick = $nick;
-    }
-
-    public function getFavoritePolandTeam() {
         return $this->favoritePolandTeam;
     }
 
-    public function getFavoriteForeignTeam() {
+    public function setFavoritePolandTeam(?string $favoritePolandTeam): static
+    {
+        $this->favoritePolandTeam = $favoritePolandTeam;
+
+        return $this;
+    }
+
+    public function getFavoriteForeignTeam(): ?string
+    {
         return $this->favoriteForeignTeam;
     }
 
-    public function getNumberOfFirstPlaces() {
+    public function setFavoriteForeignTeam(?string $favoriteForeignTeam): static
+    {
+        $this->favoriteForeignTeam = $favoriteForeignTeam;
+
+        return $this;
+    }
+
+    public function getNumberOfFirstPlaces(): ?int
+    {
         return $this->numberOfFirstPlaces;
     }
 
-    public function getNumberOfSecondPlaces() {
+    public function setNumberOfFirstPlaces(?int $numberOfFirstPlaces): static
+    {
+        $this->numberOfFirstPlaces = $numberOfFirstPlaces;
+
+        return $this;
+    }
+
+    public function getNumberOfSecondPlaces(): ?int
+    {
         return $this->numberOfSecondPlaces;
     }
 
-    public function getNumberOfThirdPlaces() {
+    public function setNumberOfSecondPlaces(?int $numberOfSecondPlaces): static
+    {
+        $this->numberOfSecondPlaces = $numberOfSecondPlaces;
+
+        return $this;
+    }
+
+    public function getNumberOfThirdPlaces(): ?int
+    {
         return $this->numberOfThirdPlaces;
     }
 
-    public function setFavoritePolandTeam($favoritePolandTeam): void {
-        $this->favoritePolandTeam = $favoritePolandTeam;
-    }
-
-    public function setFavoriteForeignTeam($favoriteForeignTeam): void {
-        $this->favoriteForeignTeam = $favoriteForeignTeam;
-    }
-
-    public function setNumberOfFirstPlaces($numberOfFirstPlaces): void {
-        $this->numberOfFirstPlaces = $numberOfFirstPlaces;
-    }
-
-    public function setNumberOfSecondPlaces($numberOfSecondPlaces): void {
-        $this->numberOfSecondPlaces = $numberOfSecondPlaces;
-    }
-
-    public function setNumberOfThirdPlaces($numberOfThirdPlaces): void {
+    public function setNumberOfThirdPlaces(?int $numberOfThirdPlaces): static
+    {
         $this->numberOfThirdPlaces = $numberOfThirdPlaces;
+
+        return $this;
     }
 
-    public function getLastWinner() {
+    public function getLastWinner(): ?int
+    {
         return $this->lastWinner;
     }
 
-    public function getLiderOfRanking() {
+    public function setLastWinner(?int $lastWinner): static
+    {
+        $this->lastWinner = $lastWinner;
+
+        return $this;
+    }
+
+    public function getLiderOfRanking(): ?int
+    {
         return $this->liderOfRanking;
     }
 
-    public function setLastWinner($lastWinner): void {
-        $this->lastWinner = $lastWinner;
-    }
-
-    public function setLiderOfRanking($liderOfRanking): void {
+    public function setLiderOfRanking(?int $liderOfRanking): static
+    {
         $this->liderOfRanking = $liderOfRanking;
+
+        return $this;
     }
 
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
 
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
 
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getShortname(): ?string
+    {
+        return $this->shortname;
+    }
+
+    public function setShortname(string $shortname): static
+    {
+        $this->shortname = $shortname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 }

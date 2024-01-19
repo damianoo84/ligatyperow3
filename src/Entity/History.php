@@ -2,63 +2,33 @@
 
 namespace App\Entity;
 
+use App\Repository\HistoryRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\HistoryRepository")
- */
+#[ORM\Entity(repositoryClass: HistoryRepository::class)]
 class History
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numOfPoints;
+    #[ORM\Column]
+    private ?int $numOfPoints = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Matchday", inversedBy="histories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $matchday;
+    #[ORM\ManyToOne(inversedBy: 'histories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Matchday $matchday = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Statistic", inversedBy="histories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $statistic;
+    #[ORM\ManyToOne(inversedBy: 'histories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Statistic $statistic = null;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function getId(): ?int
     {
@@ -70,7 +40,7 @@ class History
         return $this->numOfPoints;
     }
 
-    public function setNumOfPoints(int $numOfPoints): self
+    public function setNumOfPoints(int $numOfPoints): static
     {
         $this->numOfPoints = $numOfPoints;
 
@@ -82,7 +52,7 @@ class History
         return $this->matchday;
     }
 
-    public function setMatchday(?Matchday $matchday): self
+    public function setMatchday(?Matchday $matchday): static
     {
         $this->matchday = $matchday;
 
@@ -94,9 +64,33 @@ class History
         return $this->statistic;
     }
 
-    public function setStatistic(?Statistic $statistic): self
+    public function setStatistic(?Statistic $statistic): static
     {
         $this->statistic = $statistic;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
 
         return $this;
     }

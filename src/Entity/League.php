@@ -2,67 +2,38 @@
 
 namespace App\Entity;
 
+use App\Repository\LeagueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\LeagueRepository")
- */
+#[ORM\Entity(repositoryClass: LeagueRepository::class)]
 class League
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $name;
+    #[ORM\Column(length: 30)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Meet", mappedBy="league")
-     */
-    private $meets;
+    #[ORM\OneToMany(mappedBy: 'league', targetEntity: Meet::class)]
+    private Collection $meets;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="league")
-     */
-    private $teams;
+    #[ORM\OneToMany(mappedBy: 'league', targetEntity: Team::class)]
+    private Collection $teams;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function __construct()
     {
         $this->meets = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,7 +46,7 @@ class League
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -83,27 +54,26 @@ class League
     }
 
     /**
-     * @return Collection|Meet[]
+     * @return Collection<int, Meet>
      */
     public function getMeets(): Collection
     {
         return $this->meets;
     }
 
-    public function addMeet(Meet $meet): self
+    public function addMeet(Meet $meet): static
     {
         if (!$this->meets->contains($meet)) {
-            $this->meets[] = $meet;
+            $this->meets->add($meet);
             $meet->setLeague($this);
         }
 
         return $this;
     }
 
-    public function removeMeet(Meet $meet): self
+    public function removeMeet(Meet $meet): static
     {
-        if ($this->meets->contains($meet)) {
-            $this->meets->removeElement($meet);
+        if ($this->meets->removeElement($meet)) {
             // set the owning side to null (unless already changed)
             if ($meet->getLeague() === $this) {
                 $meet->setLeague(null);
@@ -114,29 +84,56 @@ class League
     }
 
     /**
-     *
-     * @return string
+     * @return Collection<int, Team>
      */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTeams()
+    public function getTeams(): Collection
     {
         return $this->teams;
     }
 
-    /**
-     * @param mixed $teams
-     */
-    public function setTeams($teams): void
+    public function addTeam(Team $team): static
     {
-        $this->teams = $teams;
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+            $team->setLeague($this);
+        }
+
+        return $this;
     }
 
+    public function removeTeam(Team $team): static
+    {
+        if ($this->teams->removeElement($team)) {
+            // set the owning side to null (unless already changed)
+            if ($team->getLeague() === $this) {
+                $team->setLeague(null);
+            }
+        }
 
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
 }

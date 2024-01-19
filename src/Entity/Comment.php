@@ -2,63 +2,33 @@
 
 namespace App\Entity;
 
+use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
- */
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=250)
-     */
-    private $text;
+    #[ORM\Column(length: 255)]
+    private ?string $text = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Season", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $season;
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Season $season = null;
 
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created = null;
 
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated;
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated = null;
 
     public function getId(): ?int
     {
@@ -70,7 +40,7 @@ class Comment
         return $this->text;
     }
 
-    public function setText(string $text): self
+    public function setText(string $text): static
     {
         $this->text = $text;
 
@@ -82,7 +52,7 @@ class Comment
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
@@ -94,20 +64,34 @@ class Comment
         return $this->season;
     }
 
-    public function setSeason(?Season $season): self
+    public function setSeason(?Season $season): static
     {
         $this->season = $season;
 
         return $this;
     }
 
-    public function setCreated(\DateTime $created): void {
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
         $this->created = $created;
+
+        return $this;
     }
 
-    public function setUpdated(\DateTime $updated): void {
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
         $this->updated = $updated;
+
+        return $this;
     }
-
-
 }
