@@ -21,6 +21,10 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
+    public function findAll() {
+        return $this->findBy(array(),array('league' => 'ASC'));
+    }
+    
 //    /**
 //     * @return Team[] Returns an array of Team objects
 //     */
