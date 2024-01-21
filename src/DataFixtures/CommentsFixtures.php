@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\DataFixtures\OrderedFixtureInterface;
 use App\Entity\Comment;
 
 class CommentsFixtures extends Fixture implements OrderedFixtureInterface {

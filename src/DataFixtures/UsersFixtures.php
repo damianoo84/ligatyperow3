@@ -3,9 +3,9 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\DataFixtures\OrderedFixtureInterface;
 use App\Entity\User;
 
 class UsersFixtures extends Fixture implements OrderedFixtureInterface {
