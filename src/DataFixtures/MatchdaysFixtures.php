@@ -4,16 +4,19 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use App\Entity\Matchday;
 
-class MatchdaysFixtures extends Fixture implements OrderedFixtureInterface{
+class MatchdaysFixtures extends Fixture implements FixtureGroupInterface{
     
-    public function getOrder() {
-        return 1;
+    public static function getGroups() : array
+    {
+//        return 1;
+        return ['group1'];
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager) : void
+    {
 
         $matchdaysList = array(
             array(

@@ -4,34 +4,38 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Doctrine\DataFixtures\OrderedFixtureInterface;
+//use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use App\Entity\User;
 
-class UsersFixtures extends Fixture implements OrderedFixtureInterface {
+class UsersFixtures extends Fixture implements FixtureGroupInterface {
     
-    /**
-     *
-     * @var ContainerInterface
-     */
-    private $container;
+//    /**
+//     *
+//     * @var ContainerInterface
+//     */
+//    private $container;
 
-    private $passwordEncoder;
+    private UserPasswordHasherInterface $hasher;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->hasher = $hasher;
     }
 
-    public function getOrder() {
-        return 0;
+    public static function getGroups() : array
+    {
+//        return 0;
+        return ['group0'];
     }
     
-    public function setContainer(ContainerInterface $container = null) {
-        $this->container = $container;
-    }
+//    public function setContainer(ContainerInterface $container = null) {
+//        $this->container = $container;
+//    }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager) : void
+    {
         
         $usersList = array(
             array(
@@ -613,6 +617,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
             $user = new User();
 
 //            $password = $this->passwordEncoder->encodePassword($user, $userDetails['password']);
+//            $password = $this->hasher->hashPassword($user, 'pass_1234');
             $user->setUsername($userDetails['username']);
             $user->setShortname($userDetails['shortname']);
             $user->setEmail($userDetails['email']);

@@ -4,16 +4,19 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use App\Entity\History;
 
-class HistoryFixtures extends Fixture implements OrderedFixtureInterface
+class HistoryFixtures extends Fixture implements FixtureGroupInterface
 {
-    public function getOrder() {
-        return 2;
+    public static function getGroups() : array
+    {
+//        return 2;
+        return ['group2'];
     }
     
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager) : void
+    {
         
         $historyList = array(
 

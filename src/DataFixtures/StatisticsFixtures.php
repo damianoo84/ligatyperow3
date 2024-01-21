@@ -4,16 +4,19 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use App\Entity\Statistic;
 
-class StatisticsFixtures extends Fixture implements OrderedFixtureInterface {
+class StatisticsFixtures extends Fixture implements FixtureGroupInterface {
 
-    public function getOrder() {
-        return 1;
+    public static function getGroups() : array
+    {
+//        return 1;
+        return ['group1'];
     }
     
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager) : void 
+    {
 
         $statisticsList = array(
             array('n'=>'Wojtek',   'm2'=>58,'m4'=>14,'tP'=>172,'p'=>1, 'q'=> 15,'s'=>'Jesień 2011'),
