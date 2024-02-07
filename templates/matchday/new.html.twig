@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Matchday{% endblock %}
+
+{% block body %}
+    <h1>Create new Matchday</h1>
+
+    {{ include('matchday/_form.html.twig') }}
+
+    <a href="{{ path('app_matchday_index') }}">back to list</a>
+{% endblock %}

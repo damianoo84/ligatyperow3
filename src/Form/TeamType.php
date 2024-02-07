@@ -2,29 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Team;
 use App\Entity\League;
+use App\Entity\Team;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\LeagueType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TeamType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name' , null, ['label' => 'Nazwa'])
-            ->add('shortname' , null, ['label' => 'Skrócona nazwa'])
+            ->add('name')
+            ->add('shortname')
+            ->add('created')
+            ->add('updated')
             ->add('league', EntityType::class, [
-                     'class' => League::class,
-                     'label' => 'Liga'
-            ]);
+                'class' => League::class,
+'choice_label' => 'id',
+            ])
+        ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Team::class,

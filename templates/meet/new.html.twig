@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nowy mecz{% endblock %}
+{% block title %}New Meet{% endblock %}
 
-{% block content %}
-    <h1>Dodaj nowy mecz</h1>
+{% block body %}
+    <h1>Create new Meet</h1>
 
     {{ include('meet/_form.html.twig') }}
 
-    <a href="{{ path('meet_index') }}">Wróć do listy</a>
+    <a href="{{ path('app_meet_index') }}">back to list</a>
 {% endblock %}

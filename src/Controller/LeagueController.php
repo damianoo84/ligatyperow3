@@ -5,21 +5,16 @@ namespace App\Controller;
 use App\Entity\League;
 use App\Form\LeagueType;
 use App\Repository\LeagueRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route("/admin-panel/league")
- * @Security("has_role('ROLE_ADMIN')")
- */
+#[Route('/league')]
 class LeagueController extends AbstractController
 {
-    /**
-     * @Route("/", name="league_index", methods={"GET"})
-     */
+    #[Route('/', name: 'app_league_index', methods: ['GET'])]
     public function index(LeagueRepository $leagueRepository): Response
     {
         return $this->render('league/index.html.twig', [
@@ -27,32 +22,27 @@ class LeagueController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="league_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
+    #[Route('/new', name: 'app_league_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $league = new League();
         $form = $this->createForm(LeagueType::class, $league);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($league);
             $entityManager->flush();
 
-            return $this->redirectToRoute('league_index');
+            return $this->redirectToRoute('app_league_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('league/new.html.twig', [
             'league' => $league,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="league_show", methods={"GET"})
-     */
+    #[Route('/{id}', name: 'app_league_show', methods: ['GET'])]
     public function show(League $league): Response
     {
         return $this->render('league/show.html.twig', [
@@ -60,37 +50,32 @@ class LeagueController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="league_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, League $league): Response
+    #[Route('/{id}/edit', name: 'app_league_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, League $league, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(LeagueType::class, $league);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->flush();
 
-            return $this->redirectToRoute('league_index');
+            return $this->redirectToRoute('app_league_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('league/edit.html.twig', [
             'league' => $league,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="league_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, League $league): Response
+    #[Route('/{id}', name: 'app_league_delete', methods: ['POST'])]
+    public function delete(Request $request, League $league, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$league->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($league);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('league_index');
+        return $this->redirectToRoute('app_league_index', [], Response::HTTP_SEE_OTHER);
     }
 }

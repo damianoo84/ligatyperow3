@@ -9,24 +9,36 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username' , null, ['label' => 'Imię'])
-            ->add('shortname' , null, ['label' => 'Skrót'])
-            ->add('email' , null, ['label' => 'Email'])
-            ->add('password' , null, ['label' => 'Hasło'])
-            ->add('phone' , null, ['label' => 'Telefon'])
-            ->add('numberOfWins' , null, ['label' => 'Ilość wygranych'])
-            ->add('status' , null, ['label' => 'Status'])
-            ->add('priority' , null, ['label' => 'Priorytet'])
-            ->add('rankingPosition' , null, ['label' => 'Pozycja w rankingu'])
-            ->add('maxPointsPerQueue' , null, ['label' => 'Maksymalna liczba punktów na kolejkę'])
-            ->add('minPointsPerQueue' , null, ['label' => 'Minimalna liczba punktów na kolejkę'])
+            ->add('username')
+            ->add('roles')
+            ->add('password')
+            ->add('phone')
+            ->add('numberOfWins')
+            ->add('status')
+            ->add('priority')
+            ->add('lastActivityAt')
+            ->add('rankingPosition')
+            ->add('maxPointsPerQueue')
+            ->add('minPointsPerQueue')
+            ->add('nick')
+            ->add('favoritePolandTeam')
+            ->add('favoriteForeignTeam')
+            ->add('numberOfFirstPlaces')
+            ->add('numberOfSecondPlaces')
+            ->add('numberOfThirdPlaces')
+            ->add('lastWinner')
+            ->add('liderOfRanking')
+            ->add('created')
+            ->add('updated')
+            ->add('shortname')
+            ->add('email')
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Szczegóły meczu{% endblock %}
+{% block title %}Meet{% endblock %}
 
-{% block content %}
-    <h1>Szczegóły meczu</h1>
+{% block body %}
+    <h1>Meet</h1>
 
     <table class="table">
         <tbody>
@@ -12,39 +12,39 @@
                 <td>{{ meet.id }}</td>
             </tr>
             <tr>
-                <th>Nazwa</th>
+                <th>Name</th>
                 <td>{{ meet.name }}</td>
             </tr>
             <tr>
-                <th>Gole gospodarz</th>
+                <th>HostGoals</th>
                 <td>{{ meet.hostGoals }}</td>
             </tr>
             <tr>
-                <th>Gole gość</th>
+                <th>GuestGoals</th>
                 <td>{{ meet.guestGoals }}</td>
             </tr>
             <tr>
-                <th>Termin meczu</th>
+                <th>Term</th>
                 <td>{{ meet.term }}</td>
             </tr>
             <tr>
-                <th>Pozycja</th>
+                <th>Position</th>
                 <td>{{ meet.position }}</td>
             </tr>
             <tr>
-                <th>Kolejka</th>
-                <td>{{ meet.matchday }}</td>
+                <th>Created</th>
+                <td>{{ meet.created ? meet.created|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Liga</th>
-                <td>{{ meet.league }}</td>
+                <th>Updated</th>
+                <td>{{ meet.updated ? meet.updated|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('meet_index') }}">Powrót do listy</a>
+    <a href="{{ path('app_meet_index') }}">back to list</a>
 
-    <a href="{{ path('meet_edit', {'id': meet.id}) }}">Aktualizacja</a>
+    <a href="{{ path('app_meet_edit', {'id': meet.id}) }}">edit</a>
 
     {{ include('meet/_delete_form.html.twig') }}
 {% endblock %}
