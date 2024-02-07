@@ -6,36 +6,27 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 //use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use App\Entity\User;
 
-class UsersFixtures extends Fixture implements FixtureGroupInterface {
+class UsersFixtures extends Fixture implements OrderedFixtureInterface {
     
-//    /**
-//     *
-//     * @var ContainerInterface
-//     */
-//    private $container;
-
     private UserPasswordHasherInterface $hasher;
-
+    
     public function __construct(UserPasswordHasherInterface $hasher)
     {
         $this->hasher = $hasher;
     }
 
-    public static function getGroups() : array
-    {
-//        return 0;
-        return ['group0'];
+    public function getOrder() {
+        return 0;
     }
     
-//    public function setContainer(ContainerInterface $container = null) {
-//        $this->container = $container;
-//    }
+    public function setContainer(ContainerInterface $container = null) {
+        $this->container = $container;
+    }
 
-    public function load(ObjectManager $manager) : void
-    {
+    public function load(ObjectManager $manager) {
         
         $usersList = array(
             array(
@@ -616,8 +607,8 @@ class UsersFixtures extends Fixture implements FixtureGroupInterface {
         foreach ($usersList as $userDetails) {
             $user = new User();
 
+//             $password = $this->hasher->hashPassword($user, 'pass_1234');
 //            $password = $this->passwordEncoder->encodePassword($user, $userDetails['password']);
-//            $password = $this->hasher->hashPassword($user, 'pass_1234');
             $user->setUsername($userDetails['username']);
             $user->setShortname($userDetails['shortname']);
             $user->setEmail($userDetails['email']);

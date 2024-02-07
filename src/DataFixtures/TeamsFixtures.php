@@ -4,19 +4,16 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use App\Entity\Team;
 
-class TeamsFixtures extends Fixture implements FixtureGroupInterface
+class TeamsFixtures extends Fixture implements OrderedFixtureInterface
 {
-    public static function getGroups() : array
-    {
-//        return 0;
-        return ['group0'];
+    public function getOrder() {
+        return 0;
     }
     
-    public function load(ObjectManager $manager) : void
-    {
+    public function load(ObjectManager $manager) {
         
         $teamsList = array (
             array(

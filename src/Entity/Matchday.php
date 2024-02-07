@@ -20,7 +20,7 @@ class Matchday
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dataFrom = null;
+    private ?\DateTimeInterface $dateFrom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateTo = null;
@@ -64,14 +64,14 @@ class Matchday
         return $this;
     }
 
-    public function getDataFrom(): ?\DateTimeInterface
+    public function getDateFrom(): ?\DateTimeInterface
     {
-        return $this->dataFrom;
+        return $this->dateFrom;
     }
 
-    public function setDataFrom(?\DateTimeInterface $dataFrom): static
+    public function setDateFrom(?\DateTimeInterface $dateFrom): static
     {
-        $this->dataFrom = $dataFrom;
+        $this->dateFrom = $dateFrom;
 
         return $this;
     }

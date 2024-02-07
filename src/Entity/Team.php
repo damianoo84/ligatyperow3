@@ -14,7 +14,7 @@ class Team
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $name = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 20)]
     private ?string $shortname = null;
@@ -34,12 +34,12 @@ class Team
         return $this->id;
     }
 
-    public function getName(): ?int
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(int $name): static
+    public function setName(string $name): static
     {
         $this->name = $name;
 

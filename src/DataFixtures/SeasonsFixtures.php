@@ -4,19 +4,16 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use App\Entity\Season;
 
-class SeasonsFixtures extends Fixture implements FixtureGroupInterface {
+class SeasonsFixtures extends Fixture implements OrderedFixtureInterface {
 
-    public static function getGroups() : array
-    {
-//        return 0;
-        return ['group0'];
+    public function getOrder() {
+        return 0;
     }
 
-    public function load(ObjectManager $manager) : void 
-    {
+    public function load(ObjectManager $manager) {
         
         $seasonsList = array(
             array(
@@ -169,7 +166,7 @@ class SeasonsFixtures extends Fixture implements FixtureGroupInterface {
                 'dateEnd' => '2023-12-24',
                 'active' => true
             ),
-            array(
+			array(
                 'season_name' => 'Wiosna 2024',
                 'dateStart' => '2024-02-12',
                 'dateEnd' => '2024-05-26',
