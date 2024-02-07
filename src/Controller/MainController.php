@@ -2,108 +2,71 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Type;
-use App\Entity\User;
-use App\Entity\Comment;
-use App\Entity\Season;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\ChangePasswordType;
-use App\Exception\UserException;
-use App\Twig\AppExtension;
 use Psr\Log\LoggerInterface;
 use App\Service\TypeService;
 use App\Service\HistoryService;
 use App\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Routing\Attribute\Route;
 
-class MainController extends AbstractController{
+class MainController extends AbstractController 
+{
 
-    /**
-     * @Route(
-     *      "/",
-     *      name = "liga_typerow_index"
-     * )
-     * @Template()
-     */
-    public function indexAction(LoggerInterface $logger){
+    #[Route('/', name: 'liga_typerow_index', methods: ['GET'])]
+    #[Template('main/index.html.twig')]
+    public function indexAction() : array 
+    {
         return array();
     }
 
-    /**
-     * @Route(
-     *      "/tabela",
-     *      name = "liga_typerow_table"
-     * )
-     * @Template()
-     * @param AppExtension $appExtension
-     * @return array
-     */
-    public function tableAction(LoggerInterface $logger, TypeService $typeService){
-
+    #[Route('/tabela', name: 'liga_typerow_table', methods: ['GET'])]
+    #[Template('main/table.html.twig')]
+    public function tableAction(LoggerInterface $logger, TypeService $typeService) : array 
+    {
         $logger->info('this is the table action');
         $points = $typeService->getPointsPerMatchday();
         return array('points' => $points);
     }
     
-    /**
-     * @Route(
-     *      "/wszystkietypy/{matchday}",
-     *      name = "liga_typerow_userstypes",
-     *      requirements={"matchday": "\d+"},
-     * )
-     * @Template()
-     */
-    public function userstypesAction(LoggerInterface $logger, Request $request, TypeService $typeService, UserService $userService){
-        
+    #[Route('/wszystkietypy/{matchday}', name: 'liga_typerow_userstypes', methods: ['GET'])]
+    #[Template('main/userstypes.html.twig')]
+    public function userstypesAction(LoggerInterface $logger, Request $request, TypeService $typeService, UserService $userService) : array 
+    {
         $logger->info('this is the userstypes action');
         $types = $typeService->getUsersTypes($request);
         $users = $userService->getActiveUsers();
         return array('types' => $types, 'users' => $users);
     }
 
-    /**
-     * @Route(
-     *      "/ranking",
-     *      name = "liga_typerow_ranking"
-     * )
-     * @Template()
-     */
-    public function rankingAction(LoggerInterface $logger, TypeService $typeService){
-
+    #[Route('/ranking', name: 'liga_typerow_ranking', methods: ['GET'])]
+    #[Template('main/ranking.html.twig')]
+    public function rankingAction(LoggerInterface $logger, TypeService $typeService) : array 
+    {
         $logger->info('this is the ranking action');
         $ranks = $typeService->getRanking();
         return array('ranks' => $ranks);
     }
 
-    /**
-     * @Route(
-     *      "/historia/{season}",
-     *      name = "liga_typerow_history"
-     * )
-     * @Template()
-     */
-    public function historyAction(LoggerInterface $logger, HistoryService $historyService, Request $request){
-
+    #[Route('/historia/{season}', name: 'liga_typerow_history', methods: ['GET'])]
+    #[Template('main/history.html.twig')]
+    public function historyAction(LoggerInterface $logger, HistoryService $historyService, Request $request) : array 
+    {
         $logger->info('this is the history action');
         $history = $historyService->getHistory($request);
         return array('points' => $history);
     }
 
-    /**
-     * @Route(
-     *      "/typy",
-     *      name = "liga_typerow_types"
-     * )
-     * @Template()
-     * 
-     */
-    public function typesAction(Request $request, LoggerInterface $logger, TypeService $typeService){
-        
+    #[Route('/typy', name: 'liga_typerow_types', methods: ['GET','POST'])]
+    #[Template('main/types.html.twig')]
+    public function typesAction(Request $request, LoggerInterface $logger, TypeService $typeService) : array 
+    {
         $logger->info('this is the types action');
         $types = $typeService->getUserTypes($this->getUser()->getId());
 
@@ -127,15 +90,10 @@ class MainController extends AbstractController{
         return array('meets' => $meets);
     }
 
-    /**
-     * @Route(
-     *      "/statystyki",
-     *      name = "liga_typerow_statistics"
-     * )
-     * @Template()
-     */
-    public function statisticsAction(LoggerInterface $logger){
-
+    #[Route('/statystyki', name: 'liga_typerow_statistics', methods: ['GET'])]
+    #[Template('main/statistics.html.twig')]
+    public function statisticsAction(LoggerInterface $logger) : array 
+    {
         $logger->info('this is the statistics action');
         $repository = $this->getDoctrine()->getRepository(Type::class);
         $stats = $repository->getStatistics();
@@ -143,15 +101,10 @@ class MainController extends AbstractController{
         return array('stats' => $stats);
     }
 
-    /**
-     * @Route(
-     *      "/zasady",
-     *      name = "liga_typerow_principles"
-     * )
-     * @Template()
-     */
-    public function principlesAction(LoggerInterface $logger){
-
+    #[Route('/zasady', name: 'liga_typerow_principles', methods: ['GET'])]
+    #[Template('main/principles.html.twig')]
+    public function principlesAction(LoggerInterface $logger) : array 
+    {
         $logger->info('this is the principles action');
         $principles = array(
             'Liga trwa 15 kolejnych tygodni.', 'W każdym tygodniu typujemy 10 wybranych meczy, które odbędą się w tygodniu następnym. '
@@ -172,87 +125,9 @@ class MainController extends AbstractController{
         return array('principles' => $principles);
     }
     
-    /**
-     * @Route(
-     *      "/rekordy",
-     *      name = "liga_typerow_records"
-     * )
-     * @Template()
-     */
-    public function recordsAction(LoggerInterface $logger){
-
-        $logger->info('this is the records action');
-        $records = array(
-            'Najwięcej punktów w jednej kolejce' => '26 - Piotrek 1(2x),Krystian,Kuba,Wojtek,Przemek 2',
-            'Najwięcej punktów w sezonie' => '224 - Łukasz',
-            'Największa przewaga punktowa zwycięzcy' => '18 - Piotrek 3',
-            'Najwięcej trafionych meczy za 2 punkty' => '82 - Marcin',
-            'Najwięcej trafionych meczy za 4 punkty' => '28 - Piotrek 3',
-            'Najwięcej trafionych meczy w sumie w jednym sezonie' => '93 - Łukasz'
-        );
-        
-        return array('records' => $records);
-    }
-
-    /**
-     * @Route(
-     *      "/forum",
-     *      name = "liga_typerow_forum"
-     * )
-     * @Template()
-     */
-    public function forumAction(Request $request, AppExtension $appExtension, LoggerInterface $logger){
-
-        $logger->info('this is the forum action');
-        $matchday = $appExtension->getCurrentMatchday();
-
-        $repoSeason = $this->getDoctrine()->getRepository(Season::class);
-        $lastSeasonId = $repoSeason->getLastSeason();
-            
-        if(isset($matchday)){
-            $matchday['season_id'] = $lastSeasonId;
-        }
-        
-        $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->getCommentsBySeason($matchday['season_id']);
-        
-        if ($request->getMethod() == 'POST') {
-            
-            if($request->request->get('user_comment') != null && $request->request->get('user_comment') != ''){
-                
-                $season = $repoSeason->findOneById($request->request->get('season_id'));
-                
-                $date = date('m/d/Y h:i:s a', time());
-                
-                $comment = new Comment();
-                $comment->setUser($this->getUser());
-                $comment->setSeason($season);
-                $comment->setCreated(new \DateTime("now"));
-                $comment->setText(
-                            htmlspecialchars(
-                            stripslashes(
-                            trim(
-                            strip_tags($request->request->get('user_comment'))))));
-                
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($comment);
-                $em->flush();     
-            }
-
-            return $this->redirect($this->generateUrl('liga_typerow_forum'));
-        }
-        
-        return array('comments' => $comments, 'matchday' => $matchday);
-    }
-    
-    /**
-     * @Route(
-     *      "/konto",
-     *      name = "liga_typerow_account"
-     * )
-     * @Template()
-     */
-    public function accountSettingsAction(Request $request, LoggerInterface $logger, UserPasswordEncoderInterface $passwordEncoder)
+    #[Route('/konto', name: 'liga_typerow_account', methods: ['GET'])]
+    #[Template('main/account_settings.html.twig')]
+    public function accountSettingsAction(Request $request, LoggerInterface $logger, UserPasswordEncoderInterface $passwordEncoder) : array 
     {
         $logger->info('this is the account action');
 
