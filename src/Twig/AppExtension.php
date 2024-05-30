@@ -47,6 +47,8 @@ class AppExtension extends AbstractExtension{
         $repository = $this->doctrine->getRepository(Matchday::class);
         $matchday = $repository->getMatchday();
         
+//        exit(\Doctrine\Common\Util\Debug::dump($matchday));
+        
         if($matchday == NULL){
             $matchday['id'] = 15;
             $matchday['name'] = 15;

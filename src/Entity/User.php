@@ -505,4 +505,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    /**
+     * @return Bool Whether the user is active or not
+     */
+    public function isActiveNow() : ?bool
+    {
+        // Delay during wich the user will be considered as still active
+        $delay = new \DateTime('2 minutes ago');
+        return ( $this->getLastActivityAt() > $delay );
+    }
 }

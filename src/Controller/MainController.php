@@ -18,8 +18,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class MainController extends AbstractController 
 {
 
-    #[Route('/', name: 'liga_typerow_index', methods: ['GET'])]
-    #[Template('main/index.html.twig')]
+    /**
+     * @Route(
+     *      "/",
+     *      name = "liga_typerow_index"
+     * )
+     * @Template()
+     */
     public function indexAction() : array 
     {
         return array();
