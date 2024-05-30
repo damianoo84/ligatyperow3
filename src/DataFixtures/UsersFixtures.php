@@ -612,6 +612,10 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
             $user->setUsername($userDetails['username']);
             $user->setShortname($userDetails['shortname']);
             $user->setEmail($userDetails['email']);
+            
+//            $hashedPassword = $passwordHasher->hashPassword($user,$userDetails['password']);
+//            $user->setPassword($hashedPassword);
+            
             $user->setPassword($userDetails['password']);
             $user->setRoles(array($userDetails['role']));
             $user->setPriority($userDetails['priority']);

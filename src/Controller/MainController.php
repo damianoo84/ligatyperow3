@@ -14,7 +14,6 @@ use App\Service\HistoryService;
 use App\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController 
 {
