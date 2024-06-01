@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Type;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\ChangePasswordType;
@@ -14,62 +13,67 @@ use App\Service\HistoryService;
 use App\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends AbstractController 
 {
 
-    /**
-     * @Route(
-     *      "/",
-     *      name = "liga_typerow_index"
-     * )
-     * @Template()
-     */
-    public function indexAction() : array 
+    #[Route('/', name: 'liga_typerow_index', methods: ['GET'])]
+    public function indexAction() : Response 
     {
-        return array();
+        return $this->render('main/index.html.twig', [
+            array(),
+        ]); 
     }
 
     #[Route('/tabela', name: 'liga_typerow_table', methods: ['GET'])]
-    #[Template('main/table.html.twig')]
-    public function tableAction(LoggerInterface $logger, TypeService $typeService) : array 
+    public function tableAction(LoggerInterface $logger, TypeService $typeService) : Response 
     {
         $logger->info('this is the table action');
         $points = $typeService->getPointsPerMatchday();
-        return array('points' => $points);
+                
+        return $this->render('main/table.html.twig', [
+            'points' => $points,
+        ]);
     }
     
     #[Route('/wszystkietypy/{matchday}', name: 'liga_typerow_userstypes', methods: ['GET'])]
-    #[Template('main/userstypes.html.twig')]
-    public function userstypesAction(LoggerInterface $logger, Request $request, TypeService $typeService, UserService $userService) : array 
+    public function userstypesAction(LoggerInterface $logger, Request $request, TypeService $typeService, UserService $userService) : Response 
     {
         $logger->info('this is the userstypes action');
         $types = $typeService->getUsersTypes($request);
         $users = $userService->getActiveUsers();
-        return array('types' => $types, 'users' => $users);
+        
+        return $this->render('main/userstypes.html.twig', [
+            'types' => $types,
+            'users' => $users
+        ]);
     }
 
     #[Route('/ranking', name: 'liga_typerow_ranking', methods: ['GET'])]
-    #[Template('main/ranking.html.twig')]
-    public function rankingAction(LoggerInterface $logger, TypeService $typeService) : array 
+    public function rankingAction(LoggerInterface $logger, TypeService $typeService) : Response 
     {
         $logger->info('this is the ranking action');
         $ranks = $typeService->getRanking();
-        return array('ranks' => $ranks);
+
+        return $this->render('main/ranking.html.twig', [
+            'ranks' => $ranks,
+        ]);
     }
 
     #[Route('/historia/{season}', name: 'liga_typerow_history', methods: ['GET'])]
-    #[Template('main/history.html.twig')]
-    public function historyAction(LoggerInterface $logger, HistoryService $historyService, Request $request) : array 
+    public function historyAction(LoggerInterface $logger, HistoryService $historyService, Request $request) : Response 
     {
         $logger->info('this is the history action');
         $history = $historyService->getHistory($request);
-        return array('points' => $history);
+        
+        return $this->render('main/history.html.twig', [
+            'points' => $history,
+        ]);
     }
 
     #[Route('/typy', name: 'liga_typerow_types', methods: ['GET','POST'])]
-    #[Template('main/types.html.twig')]
-    public function typesAction(Request $request, LoggerInterface $logger, TypeService $typeService) : array 
+    public function typesAction(Request $request, LoggerInterface $logger, TypeService $typeService) : Response 
     {
         $logger->info('this is the types action');
         $types = $typeService->getUserTypes($this->getUser()->getId());
@@ -80,7 +84,9 @@ class MainController extends AbstractController
         }
 
         if ($isTyped) {
-            return array('types' => $types);
+            return $this->render('main/types.html.twig', [
+                'types' => $types,
+            ]);
         }
 
         $meets = $typeService->getMeets();
@@ -91,23 +97,25 @@ class MainController extends AbstractController
             return new JsonResponse(array('message' => 'Success!'), 200);
         }
 
-        return array('meets' => $meets);
+        return $this->render('main/types.html.twig', [
+            'meets' => $meets,
+        ]);
     }
 
     #[Route('/statystyki', name: 'liga_typerow_statistics', methods: ['GET'])]
-    #[Template('main/statistics.html.twig')]
-    public function statisticsAction(LoggerInterface $logger) : array 
+    public function statisticsAction(LoggerInterface $logger) : Response 
     {
         $logger->info('this is the statistics action');
         $repository = $this->getDoctrine()->getRepository(Type::class);
         $stats = $repository->getStatistics();
         
-        return array('stats' => $stats);
+        return $this->render('main/statistics.html.twig', [
+            'stats' => $stats,
+        ]);
     }
 
     #[Route('/zasady', name: 'liga_typerow_principles', methods: ['GET'])]
-    #[Template('main/principles.html.twig')]
-    public function principlesAction(LoggerInterface $logger) : array 
+    public function principlesAction(LoggerInterface $logger) : Response 
     {
         $logger->info('this is the principles action');
         $principles = array(
@@ -126,12 +134,13 @@ class MainController extends AbstractController
             .'ex aequo 1 miejsce i każda dostanie nagrodę w postaci zgrzewki wybranego przez siebie piwa.'
         );
         
-        return array('principles' => $principles);
+        return $this->render('main/principles.html.twig', [
+            'principles' => $principles,
+        ]);
     }
     
     #[Route('/konto', name: 'liga_typerow_account', methods: ['GET'])]
-    #[Template('main/account_settings.html.twig')]
-    public function accountSettingsAction(Request $request, LoggerInterface $logger, UserPasswordEncoderInterface $passwordEncoder) : array 
+    public function accountSetAction(Request $request, LoggerInterface $logger, UserPasswordEncoderInterface $passwordEncoder) : Response 
     {
         $logger->info('this is the account action');
 
@@ -159,10 +168,10 @@ class MainController extends AbstractController
             return $this->redirect($this->generateUrl('liga_typerow_account'));
         }
 
-        return array(
+        return $this->render('main/account_settings.html.twig', [
             'user' => $user,
-            'form' => $form->createView(),
-        );
+            'form' => $form->createView()
+        ]);
     }
     
 }

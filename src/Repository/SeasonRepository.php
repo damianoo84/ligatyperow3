@@ -22,7 +22,7 @@ class SeasonRepository extends ServiceEntityRepository
     }
 
     // pobranie obecnego sezonu
-    public function getSeason() : ?Season
+    public function getSeason() : ?int
     {
         $today = new \DateTime('now');
         $qb = $this->createQueryBuilder('s');
