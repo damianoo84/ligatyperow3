@@ -532,7 +532,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberoffirstplaces' => 0,
                 'numberofsecondplaces' => 0,
                 'numberofthirdplaces' => 0,
-                'lastWinner' => 0,
+                'lastWinner' => 1,
                 'liderOfRanking' => 0
             ),
             array(
