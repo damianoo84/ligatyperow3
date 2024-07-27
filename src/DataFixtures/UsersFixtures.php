@@ -158,8 +158,8 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberoffirstplaces' => 3,
                 'numberofsecondplaces' => 4,
                 'numberofthirdplaces' => 4,
-                'lastWinner' => 0,
-                'liderOfRanking' => 0
+                'lastWinner' => 1,
+                'liderOfRanking' => 1
             ),
             array(
                 'username' => 'Tomek',
@@ -379,7 +379,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberofsecondplaces' => 5,
                 'numberofthirdplaces' => 3,
                 'lastWinner' => 0,
-                'liderOfRanking' => 1
+                'liderOfRanking' => 0
             ),
             array(
                 'username' => 'Arek',
@@ -400,7 +400,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberoffirstplaces' => 3,
                 'numberofsecondplaces' => 2,
                 'numberofthirdplaces' => 3,
-                'lastWinner' => 1,
+                'lastWinner' => 0,
                 'liderOfRanking' => 0
             ),
             array(
