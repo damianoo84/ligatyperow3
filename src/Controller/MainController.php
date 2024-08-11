@@ -12,7 +12,8 @@ use App\Service\TypeService;
 use App\Service\HistoryService;
 use App\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+//use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends AbstractController 
@@ -140,7 +141,7 @@ class MainController extends AbstractController
     }
     
     #[Route('/konto', name: 'liga_typerow_account', methods: ['GET'])]
-    public function accountSetAction(Request $request, LoggerInterface $logger, UserPasswordEncoderInterface $passwordEncoder) : Response 
+    public function accountSetAction(Request $request, LoggerInterface $logger, UserPasswordHasherInterface $passwordHasher) : Response 
     {
         $logger->info('this is the account action');
 
@@ -153,7 +154,7 @@ class MainController extends AbstractController
 
             // encode the plain password
             $user->setPassword(
-                $passwordEncoder->encodePassword(
+                $passwordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
                 )
