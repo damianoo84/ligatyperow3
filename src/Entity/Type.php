@@ -30,7 +30,7 @@ class Type
     #[ORM\JoinColumn(nullable: false)]
     private ?Meet $meet = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $created = null;
 
     #[ORM\Column(nullable: true)]
