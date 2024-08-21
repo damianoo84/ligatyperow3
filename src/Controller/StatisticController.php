@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/statistic')]
+#[Route('/admin-panel/statistic')]
 class StatisticController extends AbstractController
 {
     #[Route('/', name: 'app_statistic_index', methods: ['GET'])]

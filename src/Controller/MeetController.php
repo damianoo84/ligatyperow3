@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/meet')]
+#[Route('/admin-panel/meet')]
 class MeetController extends AbstractController
 {
     #[Route('/', name: 'app_meet_index', methods: ['GET'])]

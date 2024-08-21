@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/history')]
+#[Route('/admin-panel/history')]
 class HistoryController extends AbstractController
 {
     #[Route('/', name: 'app_history_index', methods: ['GET'])]

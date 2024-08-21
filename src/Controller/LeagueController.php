@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/league')]
+#[Route('/admin-panel/league')]
 class LeagueController extends AbstractController
 {
     #[Route('/', name: 'app_league_index', methods: ['GET'])]
