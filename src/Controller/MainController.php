@@ -15,10 +15,20 @@ use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class MainController extends AbstractController 
 {
 
+    private EntityManagerInterface $entityManager;
+
+    // Wstrzyknięcie EntityManagerInterface w konstruktorze
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+    
     #[Route('/', name: 'liga_typerow_index', methods: ['GET'])]
     public function indexAction() : Response 
     {
@@ -140,8 +150,8 @@ class MainController extends AbstractController
         ]);
     }
     
-    #[Route('/konto', name: 'liga_typerow_account', methods: ['GET'])]
-    public function accountSetAction(Request $request, LoggerInterface $logger, UserPasswordHasherInterface $passwordHasher) : Response 
+    #[Route('/konto', name: 'liga_typerow_account', methods: ['GET','POST'])]
+    public function accountSetAction(Request $request, LoggerInterface $logger, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, SessionInterface $session) : Response 
     {
         $logger->info('this is the account action');
 
@@ -151,6 +161,7 @@ class MainController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//        if ($request->getMethod() == 'POST') {
 
             // encode the plain password
             $user->setPassword(
@@ -160,12 +171,12 @@ class MainController extends AbstractController
                 )
             );
 
-            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
 //            $this->addFlash('success', "Password reset successfully");
-            $this->get('session')->getFlashBag()->add('success', 'Twoje hasło zostało zmienione!');
+            $session->getFlashBag()->add('success', 'Twoje hasło zostało zmienione!');
             return $this->redirect($this->generateUrl('liga_typerow_account'));
         }
 
