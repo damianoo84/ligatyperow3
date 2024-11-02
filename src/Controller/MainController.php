@@ -17,6 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class MainController extends AbstractController 
 {
@@ -30,11 +31,9 @@ class MainController extends AbstractController
     }
     
     #[Route('/', name: 'liga_typerow_index', methods: ['GET'])]
-    public function indexAction() : Response 
+    public function indexAction() : \Symfony\Component\HttpFoundation\RedirectResponse 
     {
-        return $this->render('main/index.html.twig', [
-            array(),
-        ]); 
+        return new RedirectResponse('/tabela'); 
     }
 
     #[Route('/tabela', name: 'liga_typerow_table', methods: ['GET'])]
