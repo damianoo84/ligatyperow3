@@ -33,12 +33,12 @@ class CronCommand extends Command {
         try {
             $this->logger->info('DC @@@@@@ 01');
             $matchdayObject = $this->entityManager->getRepository(Matchday::class)->getMatchday();
-            $this->logger->info('DC matchdayObject: ' . $matchdayObject);
+//            $this->logger->info('DC matchdayObject: ' . $matchdayObject);
             $this->logger->info('DC @@@@@@ 02');
             
             // pobranie listy numerów tel. użytkowników, którzy jeszcze nie wytypowali 
             $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['name']);
-            $this->logger->info('DC usersPhones: ' . print_r($usersPhones, true));
+//            $this->logger->info('DC usersPhones: ' . print_r($usersPhones, true));
 
             $usersPhonesString = is_array($usersPhones) ? implode(',', $usersPhones) : $usersPhones;
             
