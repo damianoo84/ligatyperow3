@@ -26,6 +26,7 @@ class MatchdayRepository extends ServiceEntityRepository
         // pobranie obecnej kolejki
     public function getMatchday() : array
     {
+        $this->logger->info('DC @@@@ 111');
         $today = new \DateTime('now');
         $qb = $this->createQueryBuilder('m');
         $qb->select('m.id AS id'
@@ -40,8 +41,9 @@ class MatchdayRepository extends ServiceEntityRepository
             ->setParameter('today', $today->format('Y-m-d H:i:s'))
         ;
 
+        $this->logger->info('DC @@@@ 222');
         $result = $qb->getQuery()->getOneOrNullResult();
-
+        $this->logger->info('DC @@@@ 333');
         $this->logger->info('DC $result (getMatchday(): ' . print_r($result, true));
 
         return $result;
