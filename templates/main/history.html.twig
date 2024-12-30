@@ -39,7 +39,7 @@
 {% block infobar %}
     <div class="list">
         <br />Sezony:
-        {% for i in 1..26 %}
+        {% for i in 1..27 %}
             <a class="history_season_big_screen" href="{{ path('liga_typerow_history', {'season' : i}) }}">{{ i }}</a> 
             <a class="history_season_small_screen" href="{{ path('liga_typerow_history', {'season' : i}) }}">{{ i }}</a> 
         {% endfor %}
