@@ -33,3 +33,7 @@ services:
     App\EventListener\ResultListener:
         tags:
             - { name: doctrine.event_listener, event: postUpdate }
+            
+    App\Command\CronCommand:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
