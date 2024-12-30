@@ -271,19 +271,18 @@ class TypeRepository extends ServiceEntityRepository
         return $userTypes;
     }
 
-    public function getNoTypedUsersList($matchday) : array
-    {
-
+   public function getNoTypedUsersList($matchday) : array
+   {
         // Pobranie listy telefonów użytkowników, którzy jeszcze nie podali typów
         $sql = 'SELECT u.phone, u.id '
-            . 'FROM type t '
-            . 'INNER JOIN user u ON t.user_id = u.id '
-            . 'INNER JOIN meet m ON t.meet_id = m.id '
-            . 'INNER JOIN matchday md ON m.matchday_id = md.id '
-            . 'WHERE md.id = :matchday '
-            . 'AND u.status = 1 '
-            . 'GROUP BY u.id '
-            . 'HAVING COUNT(t.user_id) > 0 ';
+             . 'FROM type t '
+             . 'INNER JOIN user u ON t.user_id = u.id '
+             . 'INNER JOIN meet m ON t.meet_id = m.id '
+             . 'INNER JOIN matchday md ON m.matchday_id = md.id '
+             . 'WHERE md.id = :matchday '
+             . 'AND u.status = 1 '
+             . 'GROUP BY u.id '
+             . 'HAVING COUNT(t.user_id) > 0 ';
         $params = array('matchday' => $matchday);
         $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
 
@@ -291,21 +290,28 @@ class TypeRepository extends ServiceEntityRepository
         $userRepo = $this->getEntityManager()->getRepository(User::class);
         $users = $userRepo->findByStatus(1);
 
-        $this->logger->info('DC $users: ' . $users);
+        $this->logger->info('DC $users: ' . print_r($users, true));
 
-        $phones = array();
+        // Tablice przechowujące numery telefonów
+        $userIdTyped = [];
+        $userIdAll = [];
 
+        // Zbieramy numery telefonów użytkowników, którzy wytypowali
         foreach ($userTypes as $userT) {
             $userIdTyped[] = $userT['phone'];
         }
 
+        // Zbieramy numery telefonów wszystkich aktywnych użytkowników
         foreach($users as $user){
             $userIdAll[] = $user->getPhone();
         }
 
+        // Zbieramy numery telefonów użytkowników, którzy jeszcze nie wytypowali
         $result = array_diff($userIdAll, $userIdTyped);
 
-        foreach ($result as $res){
+        // Przygotowanie wynikowej tablicy telefonów
+        $phones = [];
+        foreach ($result as $res) {
             $phones[] = $res;
         }
 
