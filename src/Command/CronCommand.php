@@ -31,9 +31,11 @@ class CronCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         try {
+            $this->logger->info('DC @@@@@@ 01');
             $matchdayObject = $this->entityManager->getRepository(Matchday::class)->getMatchday();
             $this->logger->info('DC matchdayObject: ' . $matchdayObject);
-
+            $this->logger->info('DC @@@@@@ 02');
+            
             // pobranie listy numerów tel. użytkowników, którzy jeszcze nie wytypowali 
             $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['name']);
             $this->logger->info('DC usersPhones: ' . print_r($usersPhones, true));

@@ -273,6 +273,9 @@ class TypeRepository extends ServiceEntityRepository
 
    public function getNoTypedUsersList($matchday) : array
    {
+       $this->logger->info('DC @@@@@@ 03');
+       $this->logger->info('DC $matchday: ' . $matchday);
+       
         // Pobranie listy telefonów użytkowników, którzy jeszcze nie podali typów
         $sql = 'SELECT u.phone, u.id '
              . 'FROM type t '
@@ -286,6 +289,8 @@ class TypeRepository extends ServiceEntityRepository
         $params = array('matchday' => $matchday);
         $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
 
+        $this->logger->info('DC $users: ' . print_r($userTypes, true));
+        
         // Pobieram wszystkich aktywnych użytkowników
         $userRepo = $this->getEntityManager()->getRepository(User::class);
         $users = $userRepo->findByStatus(1);

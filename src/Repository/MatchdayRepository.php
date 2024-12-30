@@ -40,7 +40,7 @@ class MatchdayRepository extends ServiceEntityRepository
 
         $result = $qb->getQuery()->getOneOrNullResult();
 
-//        exit(\Doctrine\Common\Util\Debug::dump($result));
+        exit(\Doctrine\Common\Util\Debug::dump($result));
 
         return $result;
     }
