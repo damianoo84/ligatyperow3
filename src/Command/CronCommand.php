@@ -36,15 +36,16 @@ class CronCommand extends Command {
 
             // pobranie listy numerów tel. użytkowników, którzy jeszcze nie wytypowali 
             $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['name']);
-            $this->logger->info('DC $usersPhones: ' . $usersPhones);
+            $this->logger->info('DC usersPhones: ' . print_r($usersPhones, true));
 
+            $usersPhonesString = is_array($usersPhones) ? implode(',', $usersPhones) : $usersPhones;
+            
             ini_set("soap.wsdl_cache_enabled", "0");
             $client = new \SoapClient("http://api.gsmservice.pl/soap/v2/gateway.php?wsdl");
             $arAccount = array("login" => "damcio","pass" => "gutek246");
             $arMessages = array(array(
-                "recipients" => $usersPhones,
+                "recipients" => $usersPhonesString,
                 "message" => "Przypomnienie o typowaniu",
-    //            "message" => "To jest test. Można zignorować lub potwierdzić że doszło. Można też dopisać: nie lubię Realu i CR7 :) ",
                 "sender"=> "Damian",
                 "msgType" => 1,
                 "unicode" => false,
