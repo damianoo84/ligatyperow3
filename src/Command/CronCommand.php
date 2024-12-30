@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Matchday;
+use App\Entity\Type;
 
 class CronCommand extends Command {
   
@@ -29,11 +31,11 @@ class CronCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         try {
-            $matchdayObject = $this->entityManager->getRepository('App:Matchday')->getMatchday();
+            $matchdayObject = $this->entityManager->getRepository(Matchday::class)->getMatchday();
             $this->logger->info('DC matchdayObject: ' . $matchdayObject);
 
             // pobranie listy numerów tel. użytkowników, którzy jeszcze nie wytypowali 
-            $usersPhones = $this->entityManager->getRepository('App:Type')->getNoTypedUsersList($matchdayObject['name']);
+            $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['name']);
             $this->logger->info('DC $usersPhones: ' . $usersPhones);
 
             ini_set("soap.wsdl_cache_enabled", "0");
