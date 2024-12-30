@@ -16,9 +16,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MatchdayRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, LoggerInterface $logger)
     {
         parent::__construct($registry, Matchday::class);
+        $this->logger = $logger;
     }
 
         // pobranie obecnej kolejki
