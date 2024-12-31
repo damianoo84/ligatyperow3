@@ -289,13 +289,11 @@ class TypeRepository extends ServiceEntityRepository
         $params = array('matchday' => $matchday);
         $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
         $this->logger->info('DC @@@@@@ 04');
-        $this->logger->info('DC $userTypes: ' . $userTypes);
         $this->logger->info('DC @@@@@@ 05');
         // Pobieram wszystkich aktywnych użytkowników
         $userRepo = $this->getEntityManager()->getRepository(User::class);
         $users = $userRepo->findByStatus(1);
         $this->logger->info('DC @@@@@@ 06');
-        $this->logger->info('DC $users: ' . $users);
 
         // Tablice przechowujące numery telefonów
         $userIdTyped = [];
