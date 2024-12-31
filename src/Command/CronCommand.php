@@ -35,8 +35,6 @@ class CronCommand extends Command {
             
             // pobranie listy numerów tel. użytkowników, którzy jeszcze nie wytypowali 
             $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['name']);
-//            $usersPhonesString = is_array($usersPhones) ? implode(',', $usersPhones) : $usersPhones;
-            
             $this->logger->info('numbersOfPhones: ' . json_encode($usersPhones));
             
             ini_set("soap.wsdl_cache_enabled", "0");
