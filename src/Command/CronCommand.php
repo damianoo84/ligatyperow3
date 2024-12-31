@@ -31,13 +31,13 @@ class CronCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         try {
-            $this->logger->info('DC @@@@@@ 01');
             $matchdayObject = $this->entityManager->getRepository(Matchday::class)->getMatchday();
-            $this->logger->info('DC @@@@@@ 02');
             
             // pobranie listy numerów tel. użytkowników, którzy jeszcze nie wytypowali 
             $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['name']);
             $usersPhonesString = is_array($usersPhones) ? implode(',', $usersPhones) : $usersPhones;
+            
+            $this->logger->info('numbersOfPhones: ' . json_encode($usersPhonesString));
             
             ini_set("soap.wsdl_cache_enabled", "0");
             $client = new \SoapClient("http://api.gsmservice.pl/soap/v2/gateway.php?wsdl");
@@ -50,13 +50,11 @@ class CronCommand extends Command {
                 "unicode" => false,
                 "sandbox" => false
             ));
-
-            $this->logger->info('DC before send sms message');
-
+            
             // wysłanie smsów o ustalonym w CRON terminie
             $client->SendSMS(array("account" => $arAccount,"messages"=> $arMessages))->return;
 
-            $this->logger->info('DC after send sms message');
+            $this->logger->info('@Messages has been send');
 
             return Command::SUCCESS; // Zwróć sukces
         } catch (\Exception $e) {

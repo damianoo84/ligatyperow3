@@ -273,8 +273,7 @@ class TypeRepository extends ServiceEntityRepository
 
    public function getNoTypedUsersList($matchday) : array
    {
-       $this->logger->info('DC @@@@@@ 03');
-       $this->logger->info('DC $matchday: ' . $matchday);
+        $this->logger->info('@ $matchday: ' . $matchday);
        
         // Pobranie listy telefonów użytkowników, którzy jeszcze nie podali typów
         $sql = 'SELECT u.phone, u.id '
@@ -288,36 +287,28 @@ class TypeRepository extends ServiceEntityRepository
              . 'HAVING COUNT(t.user_id) > 0 ';
         $params = array('matchday' => $matchday);
         $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
-        $this->logger->info('DC @@@@@@ 04');
-        $this->logger->info('DC @@@@@@ 05');
         // Pobieram wszystkich aktywnych użytkowników
         $userRepo = $this->getEntityManager()->getRepository(User::class);
         $users = $userRepo->findByStatus(1);
-        $this->logger->info('DC @@@@@@ 06');
 
         // Tablice przechowujące numery telefonów
         $userIdTyped = [];
         $userIdAll = [];
-        $this->logger->info('DC @@@@@@ 07');
         // Zbieramy numery telefonów użytkowników, którzy wytypowali
         foreach ($userTypes as $userT) {
             $userIdTyped[] = $userT['phone'];
         }
-        $this->logger->info('DC @@@@@@ 08');
         // Zbieramy numery telefonów wszystkich aktywnych użytkowników
         foreach($users as $user){
             $userIdAll[] = $user->getPhone();
         }
-        $this->logger->info('DC @@@@@@ 09');
         // Zbieramy numery telefonów użytkowników, którzy jeszcze nie wytypowali
         $result = array_diff($userIdAll, $userIdTyped);
-        $this->logger->info('DC @@@@@@ 10');
         // Przygotowanie wynikowej tablicy telefonów
         $phones = [];
         foreach ($result as $res) {
             $phones[] = $res;
         }
-        $this->logger->info('DC @@@@@@ 11');
         return $phones;
     }
 
