@@ -44,7 +44,7 @@ class MatchdayRepository extends ServiceEntityRepository
         $this->logger->info('DC @@@@ 222');
         $result = $qb->getQuery()->getOneOrNullResult();
         $this->logger->info('DC @@@@ 333');
-        $this->logger->info('DC $result (getMatchday(): ' . $result);
+        $this->logger->info('DC $result (getMatchday()): ' . json_encode($result));
 
         return $result;
     }
