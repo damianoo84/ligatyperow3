@@ -30,14 +30,14 @@ class MatchdaysFixtures extends Fixture implements OrderedFixtureInterface{
 //            ),
            array(
                 'matchday_name' => '1',
-                'dateFrom' => '2025-01-04',
-                'dateTo' => '2025-01-05',
+                'dateFrom' => '2025-01-06',
+                'dateTo' => '2025-01-07',
                 'season_name' => 'Wiosna 2025'
             ),
             array(
                 'matchday_name' => '2',
-                'dateFrom' => '2025-02-06',
-                'dateTo' => '2025-02-07',
+                'dateFrom' => '2025-01-08',
+                'dateTo' => '2025-01-09',
                 'season_name' => 'Wiosna 2025'
             ),
             array(
