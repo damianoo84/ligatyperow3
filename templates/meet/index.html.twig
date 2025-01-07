@@ -1,22 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Meet index{% endblock %}
+{% block title %}Lista meczy{% endblock %}
 
 {% block content %}
-    <h1>Meet index</h1>
+    <h1>Lista meczy</h1>
 
+    <a href="{{ path('app_meet_new') }}">Dodaj nowy mecz</a>
+    <br /><br /><br />
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>HostGoals</th>
-                <th>GuestGoals</th>
-                <th>Term</th>
-                <th>Position</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>actions</th>
+                <th>Nazwa</th>
+                <th>HostTeam</th>
+                <th>GuestTeam</th>
+                <th>Gole gospodarz</th>
+                <th>Gole gość</th>
+                <th>Data meczu</th>
+                <th>Pozycja meczu</th>
+                <th>Kolejka</th>
+                <th>Liga</th>
+                <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -24,15 +28,17 @@
             <tr>
                 <td>{{ meet.id }}</td>
                 <td>{{ meet.name }}</td>
+                <td>{{ meet.hostTeam}}</td>
+                <td>{{ meet.guestTeam}}</td>
                 <td>{{ meet.hostGoals }}</td>
                 <td>{{ meet.guestGoals }}</td>
                 <td>{{ meet.term }}</td>
                 <td>{{ meet.position }}</td>
-                <td>{{ meet.created ? meet.created|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ meet.updated ? meet.updated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ meet.matchday }}</td>
+                <td>{{ meet.league }}</td>
                 <td>
-                    <a href="{{ path('app_meet_show', {'id': meet.id}) }}">show</a>
-                    <a href="{{ path('app_meet_edit', {'id': meet.id}) }}">edit</a>
+                    <a href="{{ path('app_meet_show', {'id': meet.id}) }}">Szczegóły</a>
+                    <a href="{{ path('app_meet_edit', {'id': meet.id}) }}">Aktualizacja</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +49,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_meet_new') }}">Create new</a>
+    <br /><br /><br />
+    <a href="{{ path('app_meet_new') }}">Dodaj nowy mecz</a>
+    
 {% endblock %}

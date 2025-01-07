@@ -12,39 +12,39 @@
                 <td>{{ meet.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nazwa</th>
                 <td>{{ meet.name }}</td>
             </tr>
             <tr>
-                <th>HostGoals</th>
+                <th>Gole gospodarz</th>
                 <td>{{ meet.hostGoals }}</td>
             </tr>
             <tr>
-                <th>GuestGoals</th>
+                <th>Gole gość</th>
                 <td>{{ meet.guestGoals }}</td>
             </tr>
             <tr>
-                <th>Term</th>
+                <th>Termin meczu</th>
                 <td>{{ meet.term }}</td>
             </tr>
             <tr>
-                <th>Position</th>
+                <th>Pozycja</th>
                 <td>{{ meet.position }}</td>
             </tr>
             <tr>
-                <th>Created</th>
-                <td>{{ meet.created ? meet.created|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Kolejka</th>
+                <td>{{ meet.matchday }}</td>
             </tr>
             <tr>
-                <th>Updated</th>
-                <td>{{ meet.updated ? meet.updated|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Liga</th>
+                <td>{{ meet.league }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_meet_index') }}">back to list</a>
+    <a href="{{ path('app_meet_index') }}">Powrót do listy</a>
 
-    <a href="{{ path('app_meet_edit', {'id': meet.id}) }}">edit</a>
+    <a href="{{ path('app_meet_edit', {'id': meet.id}) }}">Aktualizacja</a>
 
     {{ include('meet/_delete_form.html.twig') }}
 {% endblock %}
