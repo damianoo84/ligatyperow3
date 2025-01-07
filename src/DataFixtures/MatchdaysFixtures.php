@@ -16,28 +16,16 @@ class MatchdaysFixtures extends Fixture implements OrderedFixtureInterface{
     public function load(ObjectManager $manager) {
 
         $matchdaysList = array(
-//           array(
-//                'matchday_name' => '1',
-//                'dateFrom' => '2025-02-10',
-//                'dateTo' => '2025-02-16',
-//                'season_name' => 'Wiosna 2025'
-//            ),
-//            array(
-//                'matchday_name' => '2',
-//                'dateFrom' => '2025-02-17',
-//                'dateTo' => '2025-02-23',
-//                'season_name' => 'Wiosna 2025'
-//            ),
            array(
                 'matchday_name' => '1',
-                'dateFrom' => '2025-01-06',
-                'dateTo' => '2025-01-07',
+                'dateFrom' => '2025-02-10',
+                'dateTo' => '2025-02-16',
                 'season_name' => 'Wiosna 2025'
             ),
             array(
                 'matchday_name' => '2',
-                'dateFrom' => '2025-01-08',
-                'dateTo' => '2025-01-09',
+                'dateFrom' => '2025-02-17',
+                'dateTo' => '2025-02-23',
                 'season_name' => 'Wiosna 2025'
             ),
             array(
