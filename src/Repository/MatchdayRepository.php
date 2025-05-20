@@ -41,7 +41,7 @@ class MatchdayRepository extends ServiceEntityRepository
         ;
 
         $result = $qb->getQuery()->getOneOrNullResult();
-        return $result;
+        return $result ? [$result] : [];
     }
 
     public function getPreviuosMatchday() : array
