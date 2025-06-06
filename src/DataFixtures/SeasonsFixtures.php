@@ -183,6 +183,12 @@ class SeasonsFixtures extends Fixture implements OrderedFixtureInterface {
                 'dateStart' => '2025-02-10',
                 'dateEnd' => '2025-05-25',
                 'active' => true
+            ),
+            array(
+                'season_name' => 'Jesien 2025',
+                'dateStart' => '2025-09-02',
+                'dateEnd' => '2025-12-25',
+                'active' => true
             )
         );
         
