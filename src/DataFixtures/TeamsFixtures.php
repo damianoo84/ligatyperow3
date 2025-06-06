@@ -855,7 +855,62 @@ class TeamsFixtures extends Fixture implements OrderedFixtureInterface
                 'team_name' => 'Stade Brest',
                 'shortname' => 'BRE',
                 'league' => 'Liga Francuska'
-            )
+            ),
+            array(
+                'team_name' => 'Australia',
+                'shortname' => 'AUT',
+                'league' => 'Reprezentacja'
+            ),
+            array(
+                'team_name' => 'Boliwia',
+                'shortname' => 'BOL',
+                'league' => 'Reprezentacja'
+            ),
+            array(
+                'team_name' => 'Arminia Bielefeld',
+                'shortname' => 'ARB',
+                'league' => 'Liga Niemiecka'
+            ),
+            array(
+                'team_name' => 'Pogoń Szczecin',
+                'shortname' => 'POG',
+                'league' => 'Liga Polska'
+            ),
+            array(
+                'team_name' => 'Chiny',
+                'shortname' => 'CHI',
+                'league' => 'Reprezentacja'
+            ),
+            array(
+                'team_name' => 'Arabia Saudyjska',
+                'shortname' => 'ARA',
+                'league' => 'Reprezentacja'
+            ),
+            array(
+                'team_name' => 'Macedonia Płn.',
+                'shortname' => 'MAC',
+                'league' => 'Reprezentacja'
+            ),
+            array(
+                'team_name' => 'Malta',
+                'shortname' => 'MAL',
+                'league' => 'Reprezentacja'
+            ),
+            array(
+                'team_name' => 'Litwa',
+                'shortname' => 'LIT',
+                'league' => 'Reprezentacja'
+            ), 
+            array(
+                'team_name' => 'Cercle Brugge',
+                'shortname' => 'CER',
+                'league' => 'Liga Belgijska'
+            ), 
+            array(
+                'team_name' => 'Nottingham Forest',
+                'shortname' => 'NOT',
+                'league' => 'Liga Angielska'
+            ),
             
         );
 
