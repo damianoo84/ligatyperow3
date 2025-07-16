@@ -422,7 +422,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberoffirstplaces' => 1,
                 'numberofsecondplaces' => 0,
                 'numberofthirdplaces' => 2,
-                'lastWinner' => 0,
+                'lastWinner' => 1,
                 'liderOfRanking' => 0
             ),
             array(
@@ -554,7 +554,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberoffirstplaces' => 1,
                 'numberofsecondplaces' => 1,
                 'numberofthirdplaces' => 0,
-                'lastWinner' => 1,
+                'lastWinner' => 0,
                 'liderOfRanking' => 0
             ),
             array(
@@ -567,7 +567,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'priority' => 25,
                 'phone' => '502903704',
                 'role' => 'ROLE_USER',
-                'rankingposition' => 27,
+                'rankingposition' => 26,
                 'minpointsperqueue' => 0,
                 'maxpointsperqueue' => 28,
                 'nick' => 'Marcin2',
@@ -611,7 +611,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'priority' => 27,
                 'phone' => '573266028',
                 'role' => 'ROLE_USER',
-                'rankingposition' => 26,
+                'rankingposition' => 27,
                 'minpointsperqueue' => 0,
                 'maxpointsperqueue' => 28,
                 'nick' => 'Bartek',

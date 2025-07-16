@@ -185,9 +185,9 @@ class SeasonsFixtures extends Fixture implements OrderedFixtureInterface {
                 'active' => true
             ),
             array(
-                'season_name' => 'Jesien 2025',
-                'dateStart' => '2025-09-02',
-                'dateEnd' => '2025-12-25',
+                'season_name' => 'Jesień 2025',
+                'dateStart' => '2025-09-08',
+                'dateEnd' => '2025-12-21',
                 'active' => true
             )
         );

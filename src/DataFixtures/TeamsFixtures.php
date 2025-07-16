@@ -37,7 +37,7 @@ class TeamsFixtures extends Fixture implements OrderedFixtureInterface
                 'league' => 'Liga Hiszpańska'
             ),
             array(
-                'team_name' => 'Villarreal CF',
+                'team_name' => 'Villareal CF',
                 'shortname' => 'VIL',
                 'league' => 'Liga Hiszpańska'
             ),

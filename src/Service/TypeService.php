@@ -23,6 +23,8 @@ class TypeService
 
         $matchday = $this->appExtension->getCurrentMatchday();
 
+//        exit(\Doctrine\Common\Util\Debug::dump($matchday));
+        
         $repository = $this->entityManager->getRepository(Type::class);
         $points = $repository->getPointsPerMatchday($matchday['id']);
 
