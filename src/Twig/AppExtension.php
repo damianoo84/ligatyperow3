@@ -49,10 +49,12 @@ class AppExtension extends AbstractExtension{
         
 //        exit(\Doctrine\Common\Util\Debug::dump($matchday));
         
-        if($matchday == NULL){
-            $matchday['id'] = 15;
-            $matchday['name'] = 15;
-            $matchday['finish'] = "finish";
+        if ($matchday === null) {
+            $matchday = [
+                'id' => 15,
+                'name' => 15,
+                'finish' => 'finish'
+            ];
         }
         
         return $matchday;

@@ -40,8 +40,8 @@ class MatchdayRepository extends ServiceEntityRepository
             ->setParameter('today', $today->format('Y-m-d H:i:s'))
         ;
 
-        $result = $qb->getQuery()->getOneOrNullResult();
-        return $result ? [$result] : [];
+        return $qb->getQuery()->getOneOrNullResult();
+//        return $result ? [$result] : [];
     }
 
     public function getPreviuosMatchday() : array
