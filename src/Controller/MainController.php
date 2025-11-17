@@ -141,7 +141,7 @@ class MainController extends AbstractController
             . 'zdubluję spotkanie lub podam złego gospodarza meczu) wtedy typy na ten mecz zostają anulowane. ',
             'Jeżeli zwycięzcą po 15 kolejkach okażą się dwie lub więcej osób, '
             . 'które będą miały taką samą ilość punktów to nie robimy dogrywki, każda z tych osób zajmie '
-            .'ex aequo 1 miejsce i każda dostanie nagrodę w postaci zgrzewki wybranego przez siebie piwa.'
+            .'ex aequo 1 miejsce i każda dostanie nagrodę w postaci czteropaku wybranego przez siebie piwa.'
         );
         
         return $this->render('main/principles.html.twig', [
