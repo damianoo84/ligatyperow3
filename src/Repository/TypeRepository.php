@@ -276,15 +276,14 @@ class TypeRepository extends ServiceEntityRepository
         $this->logger->info('@ $matchday: ' . $matchday);
        
         // Pobranie listy telefonów użytkowników, którzy jeszcze nie podali typów
-        $sql = 'SELECT u.phone, u.id '
-             . 'FROM type t '
-             . 'INNER JOIN user u ON t.user_id = u.id '
-             . 'INNER JOIN meet m ON t.meet_id = m.id '
-             . 'INNER JOIN matchday md ON m.matchday_id = md.id '
-             . 'WHERE md.id = :matchday '
-             . 'AND u.status = 1 '
+        $sql = 'SELECT u.id, u.phone, COUNT(t.id) AS typesCount '
+             . 'FROM user u '
+             . 'LEFT JOIN type t ON t.user_id = u.id '
+             . 'LEFT JOIN meet m ON t.meet_id = m.id '
+             . 'LEFT JOIN matchday md ON m.matchday_id = md.id AND md.id = :matchday '
+             . 'WHERE u.status = 1 '
              . 'GROUP BY u.id '
-             . 'HAVING COUNT(t.user_id) > 0 ';
+             . 'HAVING typesCount = 0 ';
         $params = array('matchday' => $matchday);
         $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAllAssociative();
         // Pobieram wszystkich aktywnych użytkowników
