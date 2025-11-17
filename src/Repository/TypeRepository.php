@@ -286,7 +286,7 @@ class TypeRepository extends ServiceEntityRepository
              . 'GROUP BY u.id '
              . 'HAVING COUNT(t.user_id) > 0 ';
         $params = array('matchday' => $matchday);
-        $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
+        $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAllAssociative();
         // Pobieram wszystkich aktywnych użytkowników
         $userRepo = $this->getEntityManager()->getRepository(User::class);
         $users = $userRepo->findByStatus(1);
