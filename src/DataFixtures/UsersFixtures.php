@@ -609,7 +609,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberofwins' => 0,
                 'status' => 1,
                 'priority' => 27,
-                'phone' => '573266028',
+                'phone' => '695452496',
                 'role' => 'ROLE_USER',
                 'rankingposition' => 27,
                 'minpointsperqueue' => 0,
