@@ -24,7 +24,7 @@ class MatchdayRepository extends ServiceEntityRepository
     }
 
         // pobranie obecnej kolejki
-    public function getMatchday() : array
+    public function getMatchday() : ?array
     {
         $today = new \DateTime('now');
         $qb = $this->createQueryBuilder('m');
@@ -44,7 +44,7 @@ class MatchdayRepository extends ServiceEntityRepository
 //        return $result ? [$result] : [];
     }
 
-    public function getPreviuosMatchday() : array
+    public function getPreviuosMatchday() : ?array
     {
 
         $today = new \DateTime('now');
