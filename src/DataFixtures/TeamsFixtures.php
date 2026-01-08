@@ -911,7 +911,16 @@ class TeamsFixtures extends Fixture implements OrderedFixtureInterface
                 'shortname' => 'NOT',
                 'league' => 'Liga Angielska'
             ),
-            
+            array(
+                'team_name' => 'USA',
+                'shortname' => 'USA',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Strasbourg',
+                'shortname' => 'STR',
+                'league' => 'Liga Francuska'
+            ),
         );
 
         foreach ($teamsList as $teamsDetails) {

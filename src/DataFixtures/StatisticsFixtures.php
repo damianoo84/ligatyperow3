@@ -376,7 +376,27 @@ class StatisticsFixtures extends Fixture implements OrderedFixtureInterface {
             array('n'=>'Piotrek3', 'm2'=>55,'m4'=>8, 'tP'=>142,'p'=>13, 'q'=>15,'s'=>'Wiosna 2025'),
             array('n'=>'Mateusz', 'm2'=>43,'m4'=>12, 'tP'=>134,'p'=>14, 'q'=>13,'s'=>'Wiosna 2025'),
             array('n'=>'Bartek', 'm2'=>36,'m4'=>12, 'tP'=>120,'p'=>15, 'q'=>12,'s'=>'Wiosna 2025'),
-            array('n'=>'Wojtek', 'm2'=>18,'m4'=>4, 'tP'=>52,'p'=>16, 'q'=>5,'s'=>'Wiosna 2025')
+            array('n'=>'Wojtek', 'm2'=>18,'m4'=>4, 'tP'=>52,'p'=>16, 'q'=>5,'s'=>'Wiosna 2025'),
+            
+            array('n'=>'Krystian', 'm2'=>63,'m4'=>28, 'tP'=>238,'p'=>1, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Piotrek3', 'm2'=>68,'m4'=>22, 'tP'=>224,'p'=>2, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Wojtek', 'm2'=>62,'m4'=>24, 'tP'=>220,'p'=>3, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Arek', 'm2'=>72,'m4'=>19, 'tP'=>220,'p'=>3, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Przemek2', 'm2'=>67,'m4'=>19, 'tP'=>210,'p'=>4, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Damian', 'm2'=>67,'m4'=>19, 'tP'=>210,'p'=>4, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Kuba2', 'm2'=>68,'m4'=>16, 'tP'=>200,'p'=>5, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Kuba1', 'm2'=>66,'m4'=>17, 'tP'=>200,'p'=>5, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Adrian', 'm2'=>66,'m4'=>16, 'tP'=>196,'p'=>6, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Zbyszek', 'm2'=>68,'m4'=>14, 'tP'=>192,'p'=>7, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Robert', 'm2'=>63,'m4'=>16, 'tP'=>190,'p'=>8, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Marcin1', 'm2'=>73,'m4'=>11, 'tP'=>190,'p'=>8, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Piotrek1', 'm2'=>68,'m4'=>13, 'tP'=>188,'p'=>9, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Mateusz', 'm2'=>54,'m4'=>19, 'tP'=>184,'p'=>10, 'q'=>14,'s'=>'Jesień 2025'),
+            array('n'=>'Kamil', 'm2'=>70,'m4'=>11, 'tP'=>184,'p'=>10, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Piotrek4', 'm2'=>74,'m4'=>8, 'tP'=>180,'p'=>11, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Łukasz2', 'm2'=>65,'m4'=>12, 'tP'=>178,'p'=>12, 'q'=>15,'s'=>'Jesień 2025'),
+            array('n'=>'Bartek', 'm2'=>59,'m4'=>15, 'tP'=>178,'p'=>12, 'q'=>14,'s'=>'Jesień 2025'),
+            array('n'=>'Grzegorz', 'm2'=>63,'m4'=>10, 'tP'=>166,'p'=>13, 'q'=>15,'s'=>'Jesień 2025')
         );
             
         
