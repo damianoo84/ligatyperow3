@@ -429,11 +429,11 @@ td.table_sum{
 }
 
 div.list{
+    clear: both;
+    display: block;
+    width: 100%;
     text-align: center;
     font-size: x-small;
-    height: 40px;
-    vertical-align: bottom;
-    bottom: 0;
 }
 
 p.p_log_user,p.queque_number{
@@ -651,4 +651,43 @@ img.table_img_puchar {
 
 .custom-error-message {
     color: red;
+}
+
+/* Siatka sezonów */
+.seasons-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* <-- kluczowa zmiana */
+    gap: 8px 12px;
+    margin-top: 10px;
+
+}
+
+/* Pojedynczy sezon – 5 kolumn na dużym ekranie */
+.season-item {
+    width: calc(20% - 12px); /* 5 w rzędzie */
+}
+
+/* Link w środku */
+.season-item a {
+    display: block;
+    padding: 6px 8px;
+    background: #f3f3f3;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.season-item.empty {
+    visibility: hidden;
+}
+
+
+/* Wersja mobilna – 2 kolumny */
+@media (max-width: 600px) {
+    .season-item {
+        width: calc(50% - 12px); /* 2 kolumny na mobile */
+    }
 }

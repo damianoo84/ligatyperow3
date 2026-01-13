@@ -72,14 +72,42 @@ class MainController extends AbstractController
     }
 
     #[Route('/historia/{season}', name: 'liga_typerow_history', methods: ['GET'])]
-    public function historyAction(LoggerInterface $logger, HistoryService $historyService, Request $request) : Response 
+    public function historyAction(
+        LoggerInterface $logger,
+        HistoryService $historyService,
+        Request $request
+    ) : Response 
     {
         $logger->info('this is the history action');
         $history = $historyService->getHistory($request);
-        
+
+        // --- GENEROWANIE TABLICY SEZONÓW ---
+        $seasons = [];
+        for ($i = 1; $i <= 29; $i++) {
+            $seasons[$i] = $this->getSeasonName($i);
+        }
+
         return $this->render('main/history.html.twig', [
             'points' => $history,
+            'seasons' => $seasons,
         ]);
+    }
+
+    /**
+     * Zwraca nazwę sezonu na podstawie jego numeru.
+     * 1 → Jesień 2011
+     * 2 → Wiosna 2012
+     * 3 → Jesień 2012
+     * 4 → Wiosna 2013
+     * itd.
+     */
+    private function getSeasonName(int $seasonNumber): string
+    {
+        // 1 → 2011, 2 → 2012, 3 → 2012, 4 → 2013, itd.
+        $year = 2011 + intdiv($seasonNumber, 2);
+        $isSpring = ($seasonNumber % 2 === 0);
+
+        return ($isSpring ? 'Wiosna ' : 'Jesień ') . $year;
     }
 
     #[Route('/typy', name: 'liga_typerow_types', methods: ['GET','POST'])]
