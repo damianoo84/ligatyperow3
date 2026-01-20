@@ -691,3 +691,70 @@ img.table_img_puchar {
         width: calc(50% - 12px); /* 2 kolumny na mobile */
     }
 }
+
+
+@media screen and (max-width: 680px) {
+    /* Rozciągnięcie tabeli na całą szerokość */
+    .tab_types2 {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tab_types2 table {
+        flex: 1 0 auto;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    .tab_types2 td,
+    .tab_types2 th {
+        padding: 2px !important;
+        margin: 0 !important;
+        font-size: xx-small !important;
+        height: 30px;
+        text-align: center;
+        vertical-align: middle;
+        box-sizing: border-box;
+    }
+
+    .tab_types2 tr {
+        height: 30px;
+    }
+
+    .tab_types2 div {
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: xx-small;
+        box-sizing: border-box;
+    }
+
+    .tab_types2 p {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: xx-small;
+        line-height: 1em;
+        text-align: center;
+    }
+
+    /* Wyrównanie pionowe nazw graczy */
+    .tab_types2 table:first-child td {
+        height: 30px;
+        vertical-align: middle;
+    }
+
+    /* Wyrównanie pionowe nazw meczów */
+    .tab_types2 table tr:first-child td div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
