@@ -50,7 +50,7 @@
 
             {# --- SEZONY --- #}
             {% for i, name in seasons %}
-                <div class="season-item">
+                <div class="season-item {% if i == selectedSeason %}selected{% endif %}">
                     <a href="{{ path('liga_typerow_history', {'season': i}) }}">
                         {{ i }}. {{ name }}
                     </a>

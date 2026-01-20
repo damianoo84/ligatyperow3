@@ -87,9 +87,13 @@ class MainController extends AbstractController
             $seasons[$i] = $this->getSeasonName($i);
         }
 
+        // --- AKTUALNIE WYBRANY SEZON ---
+        $selectedSeason = $request->get('season');
+        
         return $this->render('main/history.html.twig', [
             'points' => $history,
             'seasons' => $seasons,
+            'selectedSeason' => $selectedSeason
         ]);
     }
 
