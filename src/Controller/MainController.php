@@ -40,12 +40,44 @@ class MainController extends AbstractController
     public function tableAction(LoggerInterface $logger, TypeService $typeService) : Response 
     {
         $logger->info('this is the table action');
+
         $points = $typeService->getPointsPerMatchday();
-                
+        $points = $this->assignRanks($points);
+
         return $this->render('main/table.html.twig', [
             'points' => $points,
         ]);
     }
+
+    private function assignRanks(array $points): array
+    {
+        // Sortowanie malejąco po punktach
+        usort($points, function($a, $b) {
+            return $b['sumaAll'] <=> $a['sumaAll'];
+        });
+
+        $lastPoints = null;
+        $currentRank = 0;
+
+        foreach ($points as $index => $row) {
+
+            $sum = $row['sumaAll'];
+
+            if ($sum !== $lastPoints) {
+                $currentRank++;
+                $points[$index]['rank'] = $currentRank;
+            } else {
+                $points[$index]['rank'] = '';
+            }
+
+            $lastPoints = $sum;
+        }
+
+        return $points;
+    }
+    
+    
+
     
     #[Route('/wszystkietypy/{matchday}', name: 'liga_typerow_userstypes', methods: ['GET'])]
     public function userstypesAction(LoggerInterface $logger, Request $request, TypeService $typeService, UserService $userService) : Response 
@@ -60,6 +92,8 @@ class MainController extends AbstractController
         ]);
     }
 
+
+    
     #[Route('/ranking', name: 'liga_typerow_ranking', methods: ['GET'])]
     public function rankingAction(LoggerInterface $logger, TypeService $typeService) : Response 
     {
