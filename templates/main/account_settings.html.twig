@@ -3,27 +3,34 @@
 {% block content %}
 
     {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
+        <div class="alert alert-success sport-alert">{{ message }}</div>
     {% endfor %}
-    
-    
-    <div style="height:20px;width:100%;float:left"></div>
-    <div style="width:50%;float:left"></div>
-    <div style="width:50%;float:left">
-    {{ form_start(form) }}
 
-    {{ form_label(form.password.first) }}
-    {{ form_widget(form.password.first) }}
+    <div class="sport-full-wrapper">
 
-    {{ form_label(form.password.second) }}
-    {{ form_widget(form.password.second) }}
+        <div class="sport-full-card">
+            <div class="sport-full-header">
+                <h2>Zmiana hasła</h2>
+                <p class="sport-subtitle">Panel zawodnika – Liga Typerów</p>
+            </div>
 
-    <input type="submit" value="Zmień">
+            {{ form_start(form) }}
 
-    {{ form_end(form) }}
-    
+            <div class="sport-field">
+                {{ form_label(form.password.first) }}
+                {{ form_widget(form.password.first) }}
+            </div>
+
+            <div class="sport-field">
+                {{ form_label(form.password.second) }}
+                {{ form_widget(form.password.second) }}
+            </div>
+
+            <button class="sport-btn">Zapisz nowe hasło</button>
+
+            {{ form_end(form) }}
+        </div>
+
     </div>
-    
+
 {% endblock %}

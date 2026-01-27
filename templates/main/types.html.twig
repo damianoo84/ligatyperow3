@@ -34,39 +34,46 @@
             {% endfor %}
         </table>
     {# w innym przypadku wyświetl formularz do wypełnienia #} 
-    {% elseif (is_typed(curr_matchday().id, app.user.id)) == false %}
-        <form id="form">
-        <table class="tab_types">
-            <tr class="col_name">
-                <th class="type_desc">Opis</th>
-                <th class="type_host">Gospodarz</th>
-                <th class="type_type_host"></th>
-                <th class="type_gap"></th>
-                <th class="type_type_guest"></th>
-                <th class="type_guest">Gość</th>
-                <th class="type_term">Termin</th>
-            </tr>
-            {% for key,meet in meets %}
-            <input type="hidden" name="meet_id[]" value="{{ meet.meet_id }}" />  
-            <tr class="big_screen">
-                <td class="league">{{ meet.league }}</td>
-                <td class="team_name">{{ meet.host }}</td>
-                <td class="team_name_short">{{ meet.host }}</td>
-                <td class="user_type"><input type="text" class="tp" name="hostType[]" maxlength='1' /></td>
-{#                <td class="user_type_short"><input type="text" class="tp" name="hostType[]" maxlength='1' /></td>#}
-                <td class="gap">-</td>
-                <td class="user_type"><input type="text" class="tp" name="guestType[]" maxlength='1' /></td>
-{#                <td class="user_type_short"><input type="text" class="tp" name="guestType[]" maxlength='1' /></td>#}
-                <td class="team_name">{{ meet.guest }}</td>
-                <td class="team_name_short">{{ meet.guest }}</td>
-                <td class="term">{{ meet.term }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-            <p class="button_send"><input type="submit" value="Wyślij"/></p>
-        </form>
+{% elseif (is_typed(curr_matchday().id, app.user.id)) == false %}
 
-    {% endif %}
+    {% if meets is empty %}
+        <div class="no-meets-message">
+            Jeszcze nie ma typów na tę kolejkę
+        </div>
+            {% else %}
+                <form id="form">
+                    <table class="tab_types">
+                        <tr class="col_name">
+                            <th class="type_desc">Opis</th>
+                            <th class="type_host">Gospodarz</th>
+                            <th class="type_type_host"></th>
+                            <th class="type_gap"></th>
+                            <th class="type_type_guest"></th>
+                            <th class="type_guest">Gość</th>
+                            <th class="type_term">Termin</th>
+                        </tr>
+
+                        {% for key,meet in meets %}
+                            <input type="hidden" name="meet_id[]" value="{{ meet.meet_id }}" />
+                            <tr class="big_screen">
+                                <td class="league">{{ meet.league }}</td>
+                                <td class="team_name">{{ meet.host }}</td>
+                                <td class="team_name_short">{{ meet.host }}</td>
+                                <td class="user_type"><input type="text" class="tp" name="hostType[]" maxlength='1' /></td>
+                                <td class="gap">-</td>
+                                <td class="user_type"><input type="text" class="tp" name="guestType[]" maxlength='1' /></td>
+                                <td class="team_name">{{ meet.guest }}</td>
+                                <td class="team_name_short">{{ meet.guest }}</td>
+                                <td class="term">{{ meet.term }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                    <p class="button_send"><input type="submit" value="Wyślij"/></p>
+                </form>
+            {% endif %}
+
+        {% endif %}
     {% endif %}
         
     

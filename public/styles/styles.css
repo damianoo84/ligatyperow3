@@ -766,3 +766,196 @@ img.table_img_puchar {
     font-weight: 700;
     border: 2px solid #d4b300;
 }
+
+
+/* --- SPORTOWA KARTA ZAWODNIKA – CZARNO-BIAŁA --- */
+
+.sport-full-wrapper {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.sport-full-card {
+    width: 100%;
+    max-width: 100%;
+    background: black;
+    border: 2px solid white;
+    border-radius: 8px;
+    padding: 30px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.sport-full-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sport-full-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+.sport-subtitle {
+    margin: 0;
+    font-size: 13px;
+    color: #ccc;
+}
+
+.sport-field {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.sport-field label {
+    font-weight: bold;
+    color: white;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.sport-field input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid white;
+    background: black;
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.sport-field input:focus {
+    border-color: white;
+    outline: none;
+}
+
+.sport-btn {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sport-btn:hover {
+    background: #ddd;
+}
+
+.sport-alert {
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid #0a0;
+    background: white;
+    color: black;
+    margin-bottom: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 680px) {
+    .sport-full-card {
+        padding: 20px;
+    }
+
+    .sport-field input {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .sport-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+
+/* --- PANEL ZASAD --- */
+
+.principles-wrapper {
+    width: 100%;
+    padding: 30px 10px;
+    box-sizing: border-box;
+    background: black;
+    color: white;
+}
+
+.principles-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.principle-item {
+    display: flex;
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(255,255,255,0.2);
+    align-items: flex-start;
+}
+
+.principle-number {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 12px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.principle-text {
+    font-size: 15px;
+    line-height: 1.4em;
+}
+
+/* MOBILE */
+@media (max-width: 680px) {
+    .principles-title {
+        font-size: 20px;
+    }
+
+    .principle-item {
+        flex-direction: row;
+        padding: 12px;
+    }
+
+    .principle-number {
+        font-size: 16px;
+        min-width: 24px;
+    }
+
+    .principle-text {
+        font-size: 14px;
+    }
+}
+
+.no-meets-message {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;              /* <-- teraz widać */
+    background: white;         /* dopasowane do sekcji */
+    padding: 20px;
+    display: inline-block;
+    box-sizing: border-box;
+}

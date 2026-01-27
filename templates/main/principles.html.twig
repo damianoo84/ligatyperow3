@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <br>
-    <ul class="ul_principles">
-    {% for principle in principles %}
-            <li class="ul_principles">{{ loop.index }} . {{ principle }}</li>
-    {% endfor %}
-    </ul>
+
+    <div class="principles-wrapper">
+        <h2 class="principles-title">Zasady gry – Liga Typerów</h2>
+
+        <div class="principles-list">
+            {% for principle in principles %}
+                <div class="principle-item">
+                    <div class="principle-number">{{ loop.index }}.</div>
+                    <div class="principle-text">{{ principle }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
