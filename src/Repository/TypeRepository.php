@@ -271,44 +271,28 @@ class TypeRepository extends ServiceEntityRepository
         return $userTypes;
     }
 
-   public function getNoTypedUsersList($matchday) : array
-   {
-        $this->logger->info('@ $matchday: ' . $matchday);
-       
-        // Pobranie listy telefonów użytkowników, którzy jeszcze nie podali typów
-        $sql = 'SELECT u.id, u.phone, COUNT(t.id) AS typesCount '
-             . 'FROM user u '
-             . 'LEFT JOIN type t ON t.user_id = u.id '
-             . 'LEFT JOIN meet m ON t.meet_id = m.id '
-             . 'LEFT JOIN matchday md ON m.matchday_id = md.id AND md.id = :matchday '
-             . 'WHERE u.status = 1 '
-             . 'GROUP BY u.id '
-             . 'HAVING typesCount = 0 ';
-        $params = array('matchday' => $matchday);
-        $userTypes = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAllAssociative();
-        // Pobieram wszystkich aktywnych użytkowników
-        $userRepo = $this->getEntityManager()->getRepository(User::class);
-        $users = $userRepo->findByStatus(1);
+    public function getNoTypedUsersList(int $matchdayId): array
+    {
+        $sql = '
+            SELECT u.phone
+            FROM user u
+            WHERE u.status = 1
+            AND u.id NOT IN (
+                SELECT t.user_id
+                FROM type t
+                JOIN meet m ON t.meet_id = m.id
+                WHERE m.matchday_id = :matchday
+            )
+        ';
 
-        // Tablice przechowujące numery telefonów
-        $userIdTyped = [];
-        $userIdAll = [];
-        // Zbieramy numery telefonów użytkowników, którzy wytypowali
-        foreach ($userTypes as $userT) {
-            $userIdTyped[] = $userT['phone'];
-        }
-        // Zbieramy numery telefonów wszystkich aktywnych użytkowników
-        foreach($users as $user){
-            $userIdAll[] = $user->getPhone();
-        }
-        // Zbieramy numery telefonów użytkowników, którzy jeszcze nie wytypowali
-        $result = array_diff($userIdAll, $userIdTyped);
-        // Przygotowanie wynikowej tablicy telefonów
-        $phones = [];
-        foreach ($result as $res) {
-            $phones[] = $res;
-        }
-        return $phones;
+        $params = ['matchday' => $matchdayId];
+
+        $rows = $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery($sql, $params)
+            ->fetchAllAssociative();
+
+        return array_column($rows, 'phone');
     }
 
     function checkTypes($matchday) : array

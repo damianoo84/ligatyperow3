@@ -34,7 +34,7 @@ class CronCommand extends Command {
             $matchdayObject = $this->entityManager->getRepository(Matchday::class)->getMatchday();
             
             // pobranie listy numerów tel. użytkowników, którzy jeszcze nie wytypowali 
-            $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['name']);
+            $usersPhones = $this->entityManager->getRepository(Type::class)->getNoTypedUsersList($matchdayObject['id']);
             $this->logger->info('numbersOfPhones: ' . json_encode($usersPhones));
             
             ini_set("soap.wsdl_cache_enabled", "0");
