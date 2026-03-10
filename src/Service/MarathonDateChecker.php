@@ -8,8 +8,8 @@ use Psr\Log\LoggerInterface;
 
 class MarathonDateChecker
 {
-//    private string $url = 'https://www.athensauthenticmarathon.gr/en/';
-    private string $url = 'https://www.livescore.com/en/football/europe/champions-league/newcastle-united-vs-barcelona/1746687/';
+    private string $url = 'https://www.athensauthenticmarathon.gr/en/';
+//    private string $url = 'https://www.flashscore.pl/mecz/pilka-nozna/bolivar-z3TB3oVa/flamengo-ddNdggeC/?mid=hjCkl9EN';
     private string $cacheFile;
 
     public function __construct(
@@ -27,8 +27,8 @@ class MarathonDateChecker
 
             $crawler = new Crawler($html);
 
-//            $node = $crawler->filter('.hero_subtitle');
-            $node = $crawler->filter('span[data-id="mt-tm-sc-tm"]');
+            $node = $crawler->filter('.hero_subtitle');
+//            $node = $crawler->filter('span[data-id="mt-tm-sc-tm"]');
 
             if ($node->count() === 0) {
                 return 'ELEMENT_NOT_FOUND';
