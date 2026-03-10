@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 class MarathonDateChecker
 {
 //    private string $url = 'https://www.athensauthenticmarathon.gr/en/';
-    private string $url = 'https://www.livescore.com/en/football/poland/ekstraklasa/rakow-czestochowa-vs-pogon-szczecin/1520453/';
+    private string $url = 'https://www.livescore.com/en/football/europe/champions-league/newcastle-united-vs-barcelona/1746687/';
     private string $cacheFile;
 
     public function __construct(
