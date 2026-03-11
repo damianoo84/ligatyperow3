@@ -4,14 +4,17 @@ namespace App\Command;
 
 use App\Service\MarathonDateChecker;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'app:check-marathon',
+    description: 'Sprawdza datę maratonu w Atenach i wysyła SMS jeśli się zmieniła.'
+)]
 class CheckMarathonCommand extends Command
 {
-    protected static $defaultName = 'app:check-marathon';
-
     public function __construct(
         private MarathonDateChecker $checker,
         private LoggerInterface $logger
