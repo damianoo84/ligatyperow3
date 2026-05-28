@@ -921,6 +921,26 @@ class TeamsFixtures extends Fixture implements OrderedFixtureInterface
                 'shortname' => 'STR',
                 'league' => 'Liga Francuska'
             ),
+            array(
+                'team_name' => 'Karabach Agdam',
+                'shortname' => 'KAR',
+                'league' => 'Liga Azerbejdżańska'
+            ),
+            array(
+                'team_name' => 'Raków Częstochowa',
+                'shortname' => 'RAK',
+                'league' => 'Liga Polska'
+            ),
+            array(
+                'team_name' => 'Widzew Łódź',
+                'shortname' => 'WID',
+                'league' => 'Liga Polska'
+            ),
+            array(
+                'team_name' => 'Górnik Zabrze',
+                'shortname' => 'WID',
+                'league' => 'Liga Polska'
+            )
         );
 
         foreach ($teamsList as $teamsDetails) {

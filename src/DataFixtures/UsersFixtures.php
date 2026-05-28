@@ -136,7 +136,7 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'numberoffirstplaces' => 1,
                 'numberofsecondplaces' => 2,
                 'numberofthirdplaces' => 4,
-                'lastWinner' => 1,
+                'lastWinner' => 0,
                 'liderOfRanking' => 0
             ),
             array(
@@ -309,10 +309,10 @@ class UsersFixtures extends Fixture implements OrderedFixtureInterface {
                 'nick' => 'Kuba1',
                 'favoritepolandteam' => 'myteam',
                 'favoriteforeignteam' => 'myteam',
-                'numberoffirstplaces' => 3,
+                'numberoffirstplaces' => 4,
                 'numberofsecondplaces' => 3,
                 'numberofthirdplaces' => 0,
-                'lastWinner' => 0,
+                'lastWinner' => 1,
                 'liderOfRanking' => 0
             ),
             array(

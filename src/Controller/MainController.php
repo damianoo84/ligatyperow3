@@ -117,7 +117,7 @@ class MainController extends AbstractController
 
         // --- GENEROWANIE TABLICY SEZONÓW ---
         $seasons = [];
-        for ($i = 1; $i <= 29; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $seasons[$i] = $this->getSeasonName($i);
         }
 
