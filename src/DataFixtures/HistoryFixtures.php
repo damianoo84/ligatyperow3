@@ -420,18 +420,18 @@ class HistoryFixtures extends Fixture implements OrderedFixtureInterface
             372 => array(6,10,10,4,10,18,10,0,4,10,8,12,12,4,0)
         );
         
-        foreach ($historyList as $statistic => $points) {
-            foreach ($points as $matchday => $points) {
-
-                $history = new History();
-                $history->setMatchday($this->getReference('matchday-Kolejka '.($matchday+1)));
-                $history->setStatistic($this->getReference('statistic-'.$statistic));
-                $history->setNumOfPoints($points);
-
-                $manager->persist($history);
-            }
-        }
+//        foreach ($historyList as $statistic => $points) {
+//            foreach ($points as $matchday => $points) {
+//
+//                $history = new History();
+//                $history->setMatchday($this->getReference('matchday-Kolejka '.($matchday+1)));
+//                $history->setStatistic($this->getReference('statistic-'.$statistic));
+//                $history->setNumOfPoints($points);
+//
+////                $manager->persist($history); //        $manager->flush();  UWAGA!! odkomentować
+//            }
+//        }
         
-        $manager->flush();
+//        $manager->flush(); //        $manager->flush();  UWAGA!! odkomentować
     }
 }

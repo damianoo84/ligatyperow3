@@ -202,6 +202,12 @@ class SeasonsFixtures extends Fixture implements OrderedFixtureInterface {
                 'dateEnd' => '2026-12-21',
                 'active' => true
             ),
+            array(
+                'season_name' => 'Lato 2026',
+                'dateStart' => '2026-06-10',
+                'dateEnd' => '2026-07-19',
+                'active' => true
+            ),
         );
         
         foreach ($seasonsList as $seasonsDetails) {

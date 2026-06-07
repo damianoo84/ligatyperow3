@@ -602,7 +602,7 @@ class TeamsFixtures extends Fixture implements OrderedFixtureInterface
                 'league' => 'Reprezentacja'
             ),
             array(
-                'team_name' => 'Bośnia i H.',
+                'team_name' => 'Bośnia i Hercegowina',
                 'shortname' => 'BOS',
                 'league' => 'Reprezentacja'
             ),
@@ -940,6 +940,101 @@ class TeamsFixtures extends Fixture implements OrderedFixtureInterface
                 'team_name' => 'Górnik Zabrze',
                 'shortname' => 'WID',
                 'league' => 'Liga Polska'
+            ),
+            array(
+                'team_name' => 'RPA',
+                'shortname' => 'RPA',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Korea Południowa',
+                'shortname' => 'KOR',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Katar',
+                'shortname' => 'KAT',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Maroko',
+                'shortname' => 'MAR',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Haiti',
+                'shortname' => 'HAI',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Curacao',
+                'shortname' => 'CUR',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Wybrzeże Kości Słoniowej',
+                'shortname' => 'WKS',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Tunezja',
+                'shortname' => 'TUN',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Republika Zielonego Przylądka',
+                'shortname' => 'RZP',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Egipt',
+                'shortname' => 'EGI',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Iran',
+                'shortname' => 'IRA',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Nowa Zelandia',
+                'shortname' => 'NOZ',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Senegal',
+                'shortname' => 'SEN',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Irak',
+                'shortname' => 'IRA',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Algieria',
+                'shortname' => 'ALG',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Jordania',
+                'shortname' => 'JOR',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Demokratyczna Republika Konga',
+                'shortname' => 'DRK',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Panama',
+                'shortname' => 'PAN',
+                'league' => 'Mecz towarzyski'
+            ),
+            array(
+                'team_name' => 'Uzbekistan',
+                'shortname' => 'UZB',
+                'league' => 'Mecz towarzyski'
             )
         );
 

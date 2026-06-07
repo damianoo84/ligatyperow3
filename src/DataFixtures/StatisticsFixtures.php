@@ -420,23 +420,23 @@ class StatisticsFixtures extends Fixture implements OrderedFixtureInterface {
         );
             
         
-        foreach ($statisticsList as $statisticDetails => $stat) {
-
-            $statistic = new Statistic();
-            $statistic->setMatch2($stat['m2']);
-            $statistic->setMatch4($stat['m4']);
-            $statistic->setTotalPoints($stat['tP']);
-            $statistic->setPosition($stat['p']);
-            $statistic->setNumOfQue($stat['q']);
-            $statistic->setUser($this->getReference('user-'.$stat['n']));
-            $statistic->setSeason($this->getReference('season-'.$stat['s']));
-
-            $this->addReference('statistic-'.($statisticDetails+1), $statistic);
+//        foreach ($statisticsList as $statisticDetails => $stat) {
+//
+//            $statistic = new Statistic();
+//            $statistic->setMatch2($stat['m2']);
+//            $statistic->setMatch4($stat['m4']);
+//            $statistic->setTotalPoints($stat['tP']);
+//            $statistic->setPosition($stat['p']);
+//            $statistic->setNumOfQue($stat['q']);
+//            $statistic->setUser($this->getReference('user-'.$stat['n']));
+//            $statistic->setSeason($this->getReference('season-'.$stat['s']));
+//
+//            $this->addReference('statistic-'.($statisticDetails+1), $statistic);
             
-            $manager->persist($statistic);
-        }
+//            $manager->persist($statistic); //        $manager->flush();  UWAGA!! odkomentować
+//        }
         
-        $manager->flush();
+//        $manager->flush();  UWAGA!! odkomentować
         
     }
 

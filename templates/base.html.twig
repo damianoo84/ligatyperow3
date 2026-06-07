@@ -33,8 +33,8 @@
              Kolejny sezon Ligi Typerów już wkrótce
         {% else %}
             <div class="username">{% if app.user %}Zalogowany: {{ app.user.username }} {% endif %} </div>
-            <div class="matchweek">Kolejka {{ curr_matchday().name }}/15 | {{ curr_matchday().dateFrom|date('d.m.Y') }} - {{ curr_matchday().dateTo|date('d.m.Y') }} </div>
-            <div class="matchweek_small">Kolejka {{ curr_matchday().name }}/15 | {{ curr_matchday().dateFrom|date('d.m.Y') }} - {{ curr_matchday().dateTo|date('d.m.Y') }} </div>
+            <div class="matchweek">Kolejka {{ curr_matchday().name }}/12 | {{ curr_matchday().dateFrom|date('d.m.Y') }} - {{ curr_matchday().dateTo|date('d.m.Y') }} </div>
+            <div class="matchweek_small">Kolejka {{ curr_matchday().name }}/12 | {{ curr_matchday().dateFrom|date('d.m.Y') }} - {{ curr_matchday().dateTo|date('d.m.Y') }} </div>
             <div class="empty"></div>
         {% endif %}
     {% endblock %}
@@ -48,8 +48,8 @@
         {% endif %}
         {# Jeśli koniec ostatniej kolejki to ustawiaj ostatnią 15 #}
         <li><a href="{{ path('liga_typerow_userstypes', {'matchday' : curr_matchday().name }) }}">TYPY</a></li>
-        <li><a href="{{ path('liga_typerow_ranking') }}">RANKING</a></li>
-        <li><a href="{{ path('liga_typerow_history', {'season' : season == 1 ? season : season-1}) }}">HISTORIA</a></li>
+{#        <li><a href="{{ path('liga_typerow_ranking') }}">RANKING</a></li>#}
+{#        <li><a href="{{ path('liga_typerow_history', {'season' : season == 1 ? season : season-1}) }}">HISTORIA</a></li>#}
         {#<li><a href="{{ path('liga_typerow_forum') }}">FORUM <b class="red">({{ sum_comments(season) }})</b></a></li>#}
         <li class="icon">
             <a href="javascript:void(0);" >&#9776;</a>

@@ -53,7 +53,9 @@ class LeagueFixtures extends Fixture implements OrderedFixtureInterface{
             'Mecz towarzyski',
             'Klubowe Mistrzostwa Świata',
             'Liga Narodów',
-            'Reprezentacja'
+            'Reprezentacja',
+            'Mistrzostwa Świata',
+            'Mistrzostwa Europy'
         );
         
         $i = 1;

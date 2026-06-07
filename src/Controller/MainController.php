@@ -194,18 +194,32 @@ class MainController extends AbstractController
     public function principlesAction(LoggerInterface $logger) : Response 
     {
         $logger->info('this is the principles action');
+//        $principles = array(
+//            'Liga trwa 15 kolejnych tygodni.', 'W każdym tygodniu typujemy 10 wybranych meczy, które odbędą się w tygodniu następnym. '
+//            , 'Czas na typy to 7 dni liczony od poniedziałku '
+//            . 'godz.00:00 do niedzieli godz. 23:59',
+//            'Za prawidłowe wytypowanie rozstrzygnięcia meczu otrzymuje się 2 pkt. '
+//            . 'Za prawidłowe wytypowanie wyniku bramkowego otrzymuje się 4 pkt.',
+//            'Jeżeli w meczu dojdzie do dogrywki lub rzutów karnych to liczy się '
+//            . 'wynik meczu regulaminowych 90 minut.',
+//            'Jeżeli mecz niezostanie rozegrany w danej kolejce lub przerwany (i nie dokończony) '
+//            . 'lub zostanie uznany jako walkower, albo ja pomylę się (podam spotkanie nie z tej kolejki, '
+//            . 'zdubluję spotkanie lub podam złego gospodarza meczu) wtedy typy na ten mecz zostają anulowane. ',
+//            'Jeżeli zwycięzcą po 15 kolejkach okażą się dwie lub więcej osób, '
+//            . 'które będą miały taką samą ilość punktów to nie robimy dogrywki, każda z tych osób zajmie '
+//            .'ex aequo 1 miejsce i każda dostanie nagrodę w postaci czteropaku wybranego przez siebie piwa.'
+//        );
+        
         $principles = array(
-            'Liga trwa 15 kolejnych tygodni.', 'W każdym tygodniu typujemy 10 wybranych meczy, które odbędą się w tygodniu następnym. '
-            , 'Czas na typy to 7 dni liczony od poniedziałku '
-            . 'godz.00:00 do niedzieli godz. 23:59',
+            'Liga trwa 12 kolejek',
             'Za prawidłowe wytypowanie rozstrzygnięcia meczu otrzymuje się 2 pkt. '
             . 'Za prawidłowe wytypowanie wyniku bramkowego otrzymuje się 4 pkt.',
             'Jeżeli w meczu dojdzie do dogrywki lub rzutów karnych to liczy się '
             . 'wynik meczu regulaminowych 90 minut.',
             'Jeżeli mecz niezostanie rozegrany w danej kolejce lub przerwany (i nie dokończony) '
             . 'lub zostanie uznany jako walkower, albo ja pomylę się (podam spotkanie nie z tej kolejki, '
-            . 'zdubluję spotkanie lub podam złego gospodarza meczu) wtedy typy na ten mecz zostają anulowane. ',
-            'Jeżeli zwycięzcą po 15 kolejkach okażą się dwie lub więcej osób, '
+            . 'lub zdubluję spotkanie) wtedy typy na ten mecz zostają anulowane. ',
+            'Jeżeli zwycięzcą po 12 kolejkach okażą się dwie lub więcej osób, '
             . 'które będą miały taką samą ilość punktów to nie robimy dogrywki, każda z tych osób zajmie '
             .'ex aequo 1 miejsce i każda dostanie nagrodę w postaci czteropaku wybranego przez siebie piwa.'
         );
