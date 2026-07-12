@@ -6,7 +6,7 @@
       <tr>
         <th></th>
         <th>Gracz</th>
-        {% for i in 0..11 %}
+        {% for i in 0..12 %}
         <th class="th_table_pkt">{{loop.index}}</th>
         {% endfor %}
         <th class="th_table_sum">Punkty</th>
@@ -44,7 +44,7 @@
 
                 {# tutaj uzupełniam o brakujące kolumny #}
                 {# ale tylko gdy nie ma jeszcze punktów za 15 kolejkę #}
-                {% if point.suma|length < 14 %}
+                {% if point.suma|length < 13 %}
                     {% for i in 0..(12-point.suma|length) %}
                         <td class="table_pkt"></td>
                     {% endfor %}
