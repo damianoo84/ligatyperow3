@@ -45,7 +45,7 @@
                 {# tutaj uzupełniam o brakujące kolumny #}
                 {# ale tylko gdy nie ma jeszcze punktów za 15 kolejkę #}
                 {% if point.suma|length < 15 %}
-                    {% for i in 0..(11-point.suma|length) %}
+                    {% for i in 0..(12-point.suma|length) %}
                         <td class="table_pkt"></td>
                     {% endfor %}
                 {% endif %}
