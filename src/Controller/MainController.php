@@ -211,7 +211,7 @@ class MainController extends AbstractController
 //        );
         
         $principles = array(
-            'Liga trwa 12 kolejek',
+            'Liga trwa 13 kolejek',
             'Za prawidłowe wytypowanie rozstrzygnięcia meczu otrzymuje się 2 pkt. '
             . 'Za prawidłowe wytypowanie wyniku bramkowego otrzymuje się 4 pkt.',
             'Jeżeli w meczu dojdzie do dogrywki lub rzutów karnych to liczy się '
