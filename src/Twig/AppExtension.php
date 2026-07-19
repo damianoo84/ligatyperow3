@@ -66,8 +66,8 @@ class AppExtension extends AbstractExtension{
         $matchday = $repository->getPreviuosMatchday();
 
         if($matchday == NULL){
-            $matchday['id'] = 15;
-            $matchday['name'] = 15;
+            $matchday['id'] = 13;
+            $matchday['name'] = 13;
             $matchday['finish'] = "finish";
         }
 
