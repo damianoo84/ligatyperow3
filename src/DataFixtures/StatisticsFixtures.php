@@ -416,9 +416,28 @@ class StatisticsFixtures extends Fixture implements OrderedFixtureInterface {
             array('n'=>'Robert', 'm2'=>54,'m4'=>9, 'tP'=>144,'p'=>13, 'q'=>15,'s'=>'Wiosna 2026'),
             array('n'=>'Kamil', 'm2'=>52,'m4'=>10, 'tP'=>144,'p'=>13, 'q'=>15,'s'=>'Wiosna 2026'),
             array('n'=>'Przemek2', 'm2'=>50,'m4'=>9, 'tP'=>136,'p'=>14, 'q'=>15,'s'=>'Wiosna 2026'),
-            array('n'=>'Mateusz', 'm2'=>45,'m4'=>7, 'tP'=>118,'p'=>15, 'q'=>13,'s'=>'Wiosna 2026')
-        );
+            array('n'=>'Mateusz', 'm2'=>45,'m4'=>7, 'tP'=>118,'p'=>15, 'q'=>13,'s'=>'Wiosna 2026'),
             
+            array('n'=>'Piotrek1', 'm2'=>43,'m4'=>17, 'tP'=>154,'p'=>1, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Arek', 'm2'=>46,'m4'=>13, 'tP'=>144,'p'=>2, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Zbyszek', 'm2'=>43,'m4'=>14, 'tP'=>142,'p'=>3, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Kuba2', 'm2'=>39,'m4'=>16, 'tP'=>142,'p'=>3, 'q'=>12,'s'=>'Lato 2026'),
+            array('n'=>'Krystian', 'm2'=>49,'m4'=>11, 'tP'=>142,'p'=>3, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Robert', 'm2'=>40,'m4'=>14, 'tP'=>136,'p'=>4, 'q'=>12,'s'=>'Lato 2026'),
+            array('n'=>'Piotrek3', 'm2'=>55,'m4'=>6, 'tP'=>134,'p'=>5, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Mateusz', 'm2'=>45,'m4'=>11, 'tP'=>134,'p'=>5, 'q'=>11,'s'=>'Lato 2026'),
+            array('n'=>'Damian', 'm2'=>45,'m4'=>11, 'tP'=>134,'p'=>5, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Bartek', 'm2'=>46,'m4'=>10, 'tP'=>132,'p'=>6, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Łukasz2', 'm2'=>47,'m4'=>9, 'tP'=>130,'p'=>7, 'q'=>12,'s'=>'Lato 2026'),
+            array('n'=>'Adrian', 'm2'=>45,'m4'=>10, 'tP'=>130,'p'=>7, 'q'=>12,'s'=>'Lato 2026'),
+            array('n'=>'Wojtek', 'm2'=>39,'m4'=>12, 'tP'=>126,'p'=>8, 'q'=>10,'s'=>'Lato 2026'),
+            array('n'=>'Grzegorz', 'm2'=>45,'m4'=>9, 'tP'=>126,'p'=>8, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Przemek2', 'm2'=>40,'m4'=>11, 'tP'=>124,'p'=>9, 'q'=>13,'s'=>'Lato 2026'),
+            array('n'=>'Kuba1', 'm2'=>44,'m4'=>7, 'tP'=>116,'p'=>10, 'q'=>10,'s'=>'Lato 2026'),
+            array('n'=>'Kamil', 'm2'=>43,'m4'=>7, 'tP'=>114,'p'=>11, 'q'=>12,'s'=>'Lato 2026'),
+            array('n'=>'Piotrek4', 'm2'=>34,'m4'=>9, 'tP'=>104,'p'=>12, 'q'=>12,'s'=>'Lato 2026')
+        );
+        
         
         foreach ($statisticsList as $statisticDetails => $stat) {
 

@@ -197,6 +197,12 @@ class SeasonsFixtures extends Fixture implements OrderedFixtureInterface {
                 'active' => true
             ),
             array(
+                'season_name' => 'Lato 2026',
+                'dateStart' => '2026-06-20',
+                'dateEnd' => '2026-07-31',
+                'active' => true
+            ),
+            array(
                 'season_name' => 'Jesień 2026',
                 'dateStart' => '2026-09-08',
                 'dateEnd' => '2026-12-21',
