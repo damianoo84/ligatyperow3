@@ -116,10 +116,7 @@ class MainController extends AbstractController
         $history = $historyService->getHistory($request);
 
         // --- GENEROWANIE TABLICY SEZONÓW ---
-        $seasons = [];
-        for ($i = 1; $i <= 31; $i++) {
-            $seasons[$i] = $this->getSeasonName($i);
-        }
+        $seasons = $this->generateSeasons();
 
         // --- AKTUALNIE WYBRANY SEZON ---
         $selectedSeason = $request->get('season');
@@ -132,20 +129,54 @@ class MainController extends AbstractController
     }
 
     /**
-     * Zwraca nazwę sezonu na podstawie jego numeru.
-     * 1 → Jesień 2011
-     * 2 → Wiosna 2012
-     * 3 → Jesień 2012
-     * 4 → Wiosna 2013
-     * itd.
+    * Kolejność pór roku
+    */
+    private array $seasonOrder = [
+        'Wiosna' => 1,
+        'Lato'   => 2,
+        'Jesień' => 3,
+        'Zima'   => 4,
+    ];
+    
+    /**
+     * Sezony niestandardowe (bez numerów)
      */
-    private function getSeasonName(int $seasonNumber): string
+    private array $customSeasons = [
+        'Lato 2026',
+        // dopisuj kolejne
+    ]; 
+    
+    /**
+     * Generuje listę sezonów w poprawnej kolejności
+     */
+    private function generateSeasons(): array
     {
-        // 1 → 2011, 2 → 2012, 3 → 2012, 4 → 2013, itd.
-        $year = 2011 + intdiv($seasonNumber, 2);
-        $isSpring = ($seasonNumber % 2 === 0);
+        $seasons = [];
 
-        return ($isSpring ? 'Wiosna ' : 'Jesień ') . $year;
+        // 1. Standardowe sezony Wiosna/Jesień od 2011 do 2030
+        for ($year = 2011; $year <= 2026; $year++) {
+            $seasons[] = "Wiosna $year";
+            $seasons[] = "Jesień $year";
+        }
+
+        // 2. Dodajemy sezony niestandardowe
+        foreach ($this->customSeasons as $custom) {
+            $seasons[] = $custom;
+        }
+
+        // 3. Sortowanie po roku + kolejności pór roku
+        usort($seasons, function($a, $b) {
+            [$seasonA, $yearA] = explode(' ', $a);
+            [$seasonB, $yearB] = explode(' ', $b);
+
+            if ($yearA == $yearB) {
+                return $this->seasonOrder[$seasonA] <=> $this->seasonOrder[$seasonB];
+            }
+
+            return $yearA <=> $yearB;
+        });
+
+        return $seasons;
     }
 
     #[Route('/typy', name: 'liga_typerow_types', methods: ['GET','POST'])]
